@@ -37,7 +37,7 @@ public class EqSimpleTest extends junit.framework.TestCase {
 	EqSimple.main(args1);
 
 	// TODO: implement
-	//assertEquals("", outContent.toString());
+	// assertEquals("", outContent.toString());
 
 	// clean up stream
 	System.setOut(null);
@@ -253,8 +253,7 @@ public class EqSimpleTest extends junit.framework.TestCase {
     public void test_processWatcherAddRequest() {
 	Watcher watcher = new Watcher("Sam", 5, 8);
 	EqSimple.processWatcherAddRequest(watcher);
-	assertEquals("\nSam is added to the watchers list",
-		outContent.toString());
+	assertEquals("Sam is added to the watchers list", outContent.toString());
 
 	// clean up stream
 	System.setOut(null);
@@ -339,6 +338,18 @@ public class EqSimpleTest extends junit.framework.TestCase {
 	assertEquals("\nNo record on MaxHeap"
 		+ "\nLargest earthquake in past 6 hours:"
 		+ "\nMagnitude 50.0 at San Fran", outContent.toString());
+
+	for (int i = 0; i < 5; i++) {
+	    EqSimple.maxHeapOfRecentEarthquakes.removeMaximumValue();
+	}
+
+	EqSimple.printLargestRecentEarthquake();
+
+	assertEquals("\nNo record on MaxHeap"
+		+ "\nLargest earthquake in past 6 hours:"
+		+ "\nMagnitude 50.0 at San Fran"
+		+ "\nNo record on MaxHeap",
+		outContent.toString());
 
 	// clean up stream
 	System.setOut(null);

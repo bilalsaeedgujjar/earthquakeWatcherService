@@ -51,14 +51,19 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	heap[2] = earthquakeNode2;
 	heap[3] = earthquakeNode3;
 	heap[4] = earthquakeNode4;
-
 	this.maxHeap = new EQMaxHeap<EarthquakeNodeAwareOfHeapIndex>(heap, capacity, numberOfNodes);
+//	this.maxHeap.insert(earthquakeNode0);
+//	this.maxHeap.insert(earthquakeNode1);
+//	this.maxHeap.insert(earthquakeNode2);
+//	this.maxHeap.insert(earthquakeNode3);
+//	this.maxHeap.insert(earthquakeNode4);
     }
 
     /**
      * Place a description of your method here.
      */
     public void test_insert() {
+	assertEquals("0 1 2 3 4 ", this.maxHeap.printMaxHeapArrayIndexes());
 	Earthquake earthquakeWithMagnitude50 = new Earthquake(new Coordinate(
 		1.0, 1.0, 1.0), 50.0, "San Fran", 1000, "www.walnutiq.com", 1,
 		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
@@ -94,6 +99,13 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	assertEquals("0 1 2 3 ", this.maxHeap.printMaxHeapArrayIndexes());
 	assertEquals(3, this.maxHeap.remove(3).getIndexWithinHeapArray());
 	assertEquals("0 1 2 ", this.maxHeap.printMaxHeapArrayIndexes());
+	assertEquals(2, this.maxHeap.remove(2).getIndexWithinHeapArray());
+	assertEquals("0 1 ", this.maxHeap.printMaxHeapArrayIndexes());
+	assertEquals(1, this.maxHeap.remove(1).getIndexWithinHeapArray());
+	assertEquals("0 ", this.maxHeap.printMaxHeapArrayIndexes());
+	assertEquals(0, this.maxHeap.remove(0).getIndexWithinHeapArray());
+	assertEquals("", this.maxHeap.printMaxHeapArrayIndexes());
+	assertEquals(0, this.maxHeap.getNumberOfNodes());
 
 	try {
 	    this.maxHeap.remove(-1);
@@ -277,6 +289,22 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
      */
     public void test_getNumberOfNodes() {
 	assertEquals(5, this.maxHeap.getNumberOfNodes());
+
+	Earthquake earthquakeWithMagnitude0 = new Earthquake(new Coordinate(
+		1.0, 1.0, 1.0), 0.0, "San Fran", 1000, "www.walnutiq.com", 1,
+		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode0 = new EarthquakeNodeAwareOfHeapIndex(
+		earthquakeWithMagnitude0, 0);
+
+	this.maxHeap.removeMaximumValue();
+	assertEquals(4, this.maxHeap.getNumberOfNodes());
+	this.maxHeap.insert(earthquakeNode0);
+	assertEquals(5, this.maxHeap.getNumberOfNodes());
+
+	for (int i = 0; i < 5; i++) {
+	    this.maxHeap.removeMaximumValue();
+	}
+	assertEquals(0, this.maxHeap.getNumberOfNodes());
     }
 
     /**

@@ -73,6 +73,8 @@ public class EqSimple {
      */
     static long unixTimeOfEarliestQuake = -1;
 
+    static long currentReportTime = -1;
+
     /**
      * Prints to console information concerning watchers and earthquakes.
      *
@@ -104,6 +106,11 @@ public class EqSimple {
 	// Poll the earthquake and watcher service while there are still
 	// commands
 	while (watcherService.hasCommands()) {
+	    System.out.println("\nmaxHeap # of nodes: "
+		    + maxHeapOfRecentEarthquakes.getNumberOfNodes());
+	    System.out.println("queue # of nodes:   "
+		    + linkedQueueOfRecentEarthquakes.length());
+
 	    // nextCommands contains the watchers at the same time step
 	    // as the ArrayList index
 	    ArrayList<String> nextCommands = watcherService.getNextCommands();
@@ -112,6 +119,8 @@ public class EqSimple {
 
 	    Report latestQuakesInfo = earthquakeService.getEarthquakes(
 		    Threshold.ALL, History.HOUR);
+
+	    currentReportTime = latestQuakesInfo.getGeneratedTime();
 
 	    removeExpiredEarthquakesInQueueAndMaxHeap();
 
@@ -399,6 +408,7 @@ public class EqSimple {
      * Print to the console the largest earthquake in the past 6 hours.
      */
     public static void printLargestRecentEarthquake() {
+
 	if (maxHeapOfRecentEarthquakes.getNumberOfNodes() == 0) {
 	    System.out.print("\nNo record on MaxHeap");
 	} else {
@@ -417,9 +427,9 @@ public class EqSimple {
      */
     public static void removeExpiredEarthquakesInQueueAndMaxHeap() {
 	// assume this boolean variable is initially the case
-	boolean timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours = true;
+	boolean timeRangeBetweenFrontEarthquakeAndCurrentTimeOfReportGreaterThan6Hours = true;
 	while (linkedQueueOfRecentEarthquakes.length() > 0
-		&& timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours) {
+		&& timeRangeBetweenFrontEarthquakeAndCurrentTimeOfReportGreaterThan6Hours) {
 	    // the front of the queue is holding the oldest earthquakes
 	    Earthquake earthquakeToCheckToBeRemoved = linkedQueueOfRecentEarthquakes
 		    .frontValue().getEarthquake();
@@ -428,15 +438,14 @@ public class EqSimple {
 	    long unixTimeOfOldestQuake = earthquakeToCheckToBeRemoved.getTime();
 
 	    // if this old earthquake is greater than 6 hours compared to
-	    // the earliest quake in the queue then remove the outdated
+	    // the current reported time then remove the outdated
 	    // earthquake
-	    if ((unixTimeOfEarliestQuake - unixTimeOfOldestQuake) > millisecondsInSixHours) {
+	    if ((currentReportTime - unixTimeOfOldestQuake) > millisecondsInSixHours) {
 		int sameQuakeHeapIndex = linkedQueueOfRecentEarthquakes
 			.dequeue().getIndexWithinHeapArray();
-		linkedQueueOfRecentEarthquakes.dequeue();
 		maxHeapOfRecentEarthquakes.remove(sameQuakeHeapIndex);
 	    } else {
-		timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours = false;
+		timeRangeBetweenFrontEarthquakeAndCurrentTimeOfReportGreaterThan6Hours = false;
 	    }
 	}
     }
@@ -505,11 +514,6 @@ public class EqSimple {
 	    double longitudeWatcher = watcher.getLongitude();
 	    double latitudeWatcher = watcher.getLatitude();
 
-	    System.out.println("\nlongitudeEarthquake: " + longitudeEarthquake);
-	    System.out.println("latitudeEarthquake: " + latitudeEarthquake);
-	    System.out.println("longitudeWatcher: " + longitudeWatcher);
-	    System.out.println("latitudeWatcher: " + latitudeWatcher);
-
 	    double longitudeDifference = longitudeEarthquake - longitudeWatcher;
 	    double latitudeDifference = latitudeEarthquake - latitudeWatcher;
 
@@ -517,9 +521,6 @@ public class EqSimple {
 		    + Math.pow(latitudeDifference, 2));
 
 	    double earthquakeMagnitude = newEarthquake.getMagnitude();
-
-	    System.out.println("earthquakeMagnitude: " + earthquakeMagnitude);
-	    System.out.println("distance: " + distance);
 
 	    if (distance < (2 * Math.pow(earthquakeMagnitude, 3))) {
 		System.out.print("\nEarthquake "

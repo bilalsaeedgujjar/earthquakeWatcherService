@@ -61,7 +61,6 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
 		    + nodeValue.getIndexWithinHeapArray()
 		    + " could not be inserted because the max-heap is full");
 	}
-
 	int currentNodePosition = this.numberOfNodes++;
 
 	if (nodeValue instanceof EarthquakeNodeAwareOfHeapIndex) {
