@@ -41,7 +41,7 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
+     * Place every node in your heap in the correct position.
      */
     public void buildHeap() {
 	for (int i = (this.numberOfNodes / 2 - 1); i >= 0; i--) {
@@ -50,9 +50,10 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
+     * Insert given node into the correct position within the max-heap.
      *
      * @param nodeValue
+     *            Node to be inserted.
      */
     public void insert(E nodeValue) {
 	if (this.capacity <= this.numberOfNodes) {
@@ -85,11 +86,13 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
      * value that the removed node is replaced with.
      *
      * @param arrayIndex
+     *            Index of node to be removed.
      * @return The node that was removed at arrayIndex.
      */
     public E remove(int arrayIndex) {
 	int changingArrayIndex = arrayIndex;
-	if ((changingArrayIndex < 0) || (changingArrayIndex >= this.numberOfNodes)) {
+	if ((changingArrayIndex < 0)
+		|| (changingArrayIndex >= this.numberOfNodes)) {
 	    throw new IllegalArgumentException("In method remove of class "
 		    + "MaxHeap the input node postion to be removed is invalid");
 	}
@@ -106,7 +109,8 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
 	    while ((changingArrayIndex > 0)
 		    && (this.heap[changingArrayIndex].compareTo(this.heap[this
 			    .getParentIndex(changingArrayIndex)]) > 0)) {
-		this.swap(changingArrayIndex, this.getParentIndex(changingArrayIndex));
+		this.swap(changingArrayIndex,
+			this.getParentIndex(changingArrayIndex));
 		changingArrayIndex = this.getParentIndex(changingArrayIndex);
 	    }
 	    if (this.numberOfNodes != 0) {
@@ -118,13 +122,15 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
+     * Remove the node with the maximum value in the max-heap.
+     *
      * @return maximum node value in max-heap.
      */
     public E removeMaximumValue() {
 	if (this.numberOfNodes == 0) {
 	    throw new IllegalStateException(
-		    "In method removeMaximumValue of class "
-			    + "MaxHeap the value you cannot remove a value from an "
+		    "In method removeMaximumValue of class MaxHeap the "
+			    + "value you cannot remove a value from an "
 			    + "empty max-heap");
 	}
 	// swap maximum with last value
@@ -138,9 +144,9 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
+     * Return the node with the maximum value in the max-heap.
      *
-     * @return The node with the maximxum magnitude.
+     * @return The node with the maximum value.
      */
     public E getMaximumValue() {
 	if (this.numberOfNodes == 0) {
@@ -161,12 +167,12 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
      */
     void correctNodeIndexByShifting(int arrayIndex) {
 	int changingArrayIndex = arrayIndex;
-	if ((changingArrayIndex < 0) || (changingArrayIndex >= this.numberOfNodes)) {
-	    throw new IllegalArgumentException(
-		    "In method shiftDown of class "
-			    + "MaxHeap the value: "
-			    + changingArrayIndex
-			    + " represents a node that does not exist in the current heap");
+	if ((changingArrayIndex < 0)
+		|| (changingArrayIndex >= this.numberOfNodes)) {
+	    throw new IllegalArgumentException("In method shiftDown of class "
+		    + "MaxHeap the value: " + changingArrayIndex
+		    + " represents a node that does not exist in "
+		    + "the current heap");
 	}
 	while (!this.isLeafNode(changingArrayIndex)) {
 	    int childIndex = this.getLeftChildIndex(changingArrayIndex);
@@ -176,7 +182,8 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
 		childIndex++; // childIndex is not at index of child with
 			      // greater node value
 	    }
-	    if (this.heap[changingArrayIndex].compareTo(this.heap[childIndex]) >= 0) {
+	    if (this.heap[changingArrayIndex].compareTo(this.heap[childIndex])
+		    >= 0) {
 		return;
 	    }
 	    this.swap(changingArrayIndex, childIndex);
@@ -185,20 +192,24 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
+     * Change the position of two nodes.
      *
      * @param arrayIndex1
+     *            Index of node 1 within max-heap array based implementation.
      * @param arrayIndex2
+     *            Index of node 2 within max-heap array based implementation.
      */
     void swap(int arrayIndex1, int arrayIndex2) {
 	if (arrayIndex1 < 0 || arrayIndex1 > this.numberOfNodes) {
 	    throw new IllegalArgumentException(
 		    "In method swap of class "
-			    + "MaxHeap the input arrayIndex1 is not a valid node position");
+			    + "MaxHeap the input arrayIndex1 is not a valid " +
+			    "node position");
 	} else if (arrayIndex2 < 0 || arrayIndex2 > this.numberOfNodes) {
 	    throw new IllegalArgumentException(
 		    "In method swap of class "
-			    + "MaxHeap the input arrayIndex2 is not a valid node position");
+			    + "MaxHeap the input arrayIndex2 is not a valid " +
+			    "node position");
 	}
 	E tempNodeValue = this.heap[arrayIndex1];
 
@@ -214,9 +225,10 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
+     * Return index of parent node.
      *
      * @param arrayIndex
+     *            Index of child node.
      * @return The index of the parent node.
      */
     public int getParentIndex(int arrayIndex) {
@@ -231,9 +243,10 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
+     * Return index of right child to node at given index.
      *
      * @param arrayIndex
+     *            Index of right child.
      * @return the index of the right child.
      */
     public int getRightChildIndex(int arrayIndex) {
@@ -247,9 +260,10 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
+     * Return index of left child to node at given index.
      *
      * @param arrayIndex
+     *            Index of left child.
      * @return The index of the left child.
      */
     public int getLeftChildIndex(int arrayIndex) {
@@ -263,10 +277,11 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
+     * Return if the node at the given index is a leaf node.
      *
      * @param arrayIndex
-     * @return if the node at the given index is a leaf node.
+     *            Index of node to check.
+     * @return True if this node has no children; otherwise return false.
      */
     public boolean isLeafNode(int arrayIndex) {
 	if ((arrayIndex >= (this.numberOfNodes / 2))
@@ -278,8 +293,6 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
-     *
      * @return The number of nodes in this max-heap.
      */
     public int getNumberOfNodes() {
@@ -287,8 +300,6 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
-     *
      * @return The height of the heap.
      */
     public int getHeapHeight() {
@@ -298,8 +309,6 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
-     *
      * @return The indices of elements in the max-heap.
      */
     public String printMaxHeapArrayIndexes() {
@@ -311,8 +320,6 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     }
 
     /**
-     * Place a description of your method here.
-     *
      * @return The current max-heap.
      */
     public E[] getHeap() {

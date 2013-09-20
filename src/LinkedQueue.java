@@ -6,6 +6,7 @@
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 1, 2013
+ * @param <E> Can hold any object.
  */
 public class LinkedQueue<E> implements QueueInterface<E> {
     private Link<E> front;
@@ -79,7 +80,8 @@ public class LinkedQueue<E> implements QueueInterface<E> {
 	StringBuilder linkedQueueAsString = new StringBuilder();
 	linkedQueueAsString.append("< ");
 	System.out.println("front.getNextNode: " + this.front.getNextNode());
-	for (Link<E> node = this.front.getNextNode(); node != null; node = node.getNextNode()) {
+	for (Link<E> node = this.front.getNextNode(); node != null;
+		node = node.getNextNode()) {
 	    linkedQueueAsString.append(node.getValue());
 	    System.out.println(node.getValue() + ",");
 	    linkedQueueAsString.append(" ");

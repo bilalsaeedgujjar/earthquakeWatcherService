@@ -10,10 +10,14 @@ import realtimeweb.earthquakeservice.domain.Earthquake;
 public class EQMaxHeapTest extends junit.framework.TestCase {
     private EQMaxHeap<EarthquakeNodeAwareOfHeapIndex> maxHeap;
 
+    /**
+     * Create five earthquake nodes and add them to the maxHeap to be tested.
+     */
     public void setUp() {
 	int numberOfNodes = 5;
 	int capacity = 6;
-	EarthquakeNodeAwareOfHeapIndex[] heap = new EarthquakeNodeAwareOfHeapIndex[capacity];
+	EarthquakeNodeAwareOfHeapIndex[] heap =
+		new EarthquakeNodeAwareOfHeapIndex[capacity];
 
 	Earthquake earthquakeWithMagnitude0 = new Earthquake(new Coordinate(
 		1.0, 1.0, 1.0), 0.0, "San Fran", 1000, "www.walnutiq.com", 1,
@@ -35,15 +39,20 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 		1.0, 1.0, 1.0), 40.0, "San Fran", 1000, "www.walnutiq.com", 1,
 		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
 
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode0 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode0 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude0, 0);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode1 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode1 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude10, 1);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode2 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode2 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude20, 2);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode3 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode3 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude30, 3);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode4 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode4 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude40, 4);
 
 	heap[0] = earthquakeNode0;
@@ -51,12 +60,13 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	heap[2] = earthquakeNode2;
 	heap[3] = earthquakeNode3;
 	heap[4] = earthquakeNode4;
-	this.maxHeap = new EQMaxHeap<EarthquakeNodeAwareOfHeapIndex>(heap, capacity, numberOfNodes);
-//	this.maxHeap.insert(earthquakeNode0);
-//	this.maxHeap.insert(earthquakeNode1);
-//	this.maxHeap.insert(earthquakeNode2);
-//	this.maxHeap.insert(earthquakeNode3);
-//	this.maxHeap.insert(earthquakeNode4);
+	this.maxHeap = new EQMaxHeap<EarthquakeNodeAwareOfHeapIndex>(heap,
+		capacity, numberOfNodes);
+	// this.maxHeap.insert(earthquakeNode0);
+	// this.maxHeap.insert(earthquakeNode1);
+	// this.maxHeap.insert(earthquakeNode2);
+	// this.maxHeap.insert(earthquakeNode3);
+	// this.maxHeap.insert(earthquakeNode4);
     }
 
     /**
@@ -67,7 +77,8 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	Earthquake earthquakeWithMagnitude50 = new Earthquake(new Coordinate(
 		1.0, 1.0, 1.0), 50.0, "San Fran", 1000, "www.walnutiq.com", 1,
 		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode5 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode5 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude50, 5);
 
 	this.maxHeap.insert(earthquakeNode5);
@@ -76,7 +87,8 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	Earthquake earthquakeWithMagnitude60 = new Earthquake(new Coordinate(
 		1.0, 1.0, 1.0), 60.0, "San Fran", 1000, "www.walnutiq.com", 1,
 		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode6 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode6 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude60, 6);
 
 	try {
@@ -113,7 +125,8 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	} catch (IllegalArgumentException expected) {
 	    assertEquals(
 		    "In method remove of class "
-			    + "MaxHeap the input node postion to be removed is invalid",
+			    + "MaxHeap the input node postion to be " +
+			    "removed is invalid",
 		    expected.getMessage());
 	}
     }
@@ -181,7 +194,8 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	    assertEquals(
 		    "In method shiftDown of class "
 			    + "MaxHeap the value: -1"
-			    + " represents a node that does not exist in the current heap",
+			    + " represents a node that does not exist " +
+			    "in the current heap",
 		    expected.getMessage());
 	}
     }
@@ -190,8 +204,7 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
      * Place a description of your method here.
      */
     public void test_swap() {
-	assertEquals("0 1 2 3 4 ",
-		this.maxHeap.printMaxHeapArrayIndexes());
+	assertEquals("0 1 2 3 4 ", this.maxHeap.printMaxHeapArrayIndexes());
 
 	EarthquakeNodeAwareOfHeapIndex[] heap = this.maxHeap.getHeap();
 	assertEquals(30.0, heap[1].getEarthquake().getMagnitude());
@@ -202,8 +215,7 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	// EarthquakeNodeAwareOfHeapIndex objects have been swapped but because
 	// they are also updated in the swap method it cannot seen through
 	// the print method
-	assertEquals("0 1 2 3 4 ",
-		this.maxHeap.printMaxHeapArrayIndexes());
+	assertEquals("0 1 2 3 4 ", this.maxHeap.printMaxHeapArrayIndexes());
 
 	// instead you must verify the actual heap
 	assertEquals(40.0, heap[1].getEarthquake().getMagnitude());
@@ -215,7 +227,8 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	} catch (IllegalArgumentException expected) {
 	    assertEquals(
 		    "In method swap of class "
-			    + "MaxHeap the input arrayIndex1 is not a valid node position",
+			    + "MaxHeap the input arrayIndex1 is not a " +
+			    "valid node position",
 		    expected.getMessage());
 	}
 	try {
@@ -224,7 +237,8 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	} catch (IllegalArgumentException expected) {
 	    assertEquals(
 		    "In method swap of class "
-			    + "MaxHeap the input arrayIndex2 is not a valid node position",
+			    + "MaxHeap the input arrayIndex2 is not a " +
+			    "valid node position",
 		    expected.getMessage());
 	}
     }
@@ -293,7 +307,8 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
 	Earthquake earthquakeWithMagnitude0 = new Earthquake(new Coordinate(
 		1.0, 1.0, 1.0), 0.0, "San Fran", 1000, "www.walnutiq.com", 1,
 		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode0 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode0 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude0, 0);
 
 	this.maxHeap.removeMaximumValue();
@@ -318,7 +333,6 @@ public class EQMaxHeapTest extends junit.framework.TestCase {
      * Place a description of your method here.
      */
     public void test_printMaxHeapArray() {
-	assertEquals("0 1 2 3 4 ",
-		this.maxHeap.printMaxHeapArrayIndexes());
+	assertEquals("0 1 2 3 4 ", this.maxHeap.printMaxHeapArrayIndexes());
     }
 }

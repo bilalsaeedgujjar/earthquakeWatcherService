@@ -21,6 +21,9 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	this.watcher4 = new Watcher("Hunter", 6, 7);
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_insert() {
 	this.linkedList.insert(this.watcher1);
 	assertEquals("< | Quinn >", this.linkedList.toString());
@@ -28,12 +31,18 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertEquals("< | AJ Quinn >", this.linkedList.toString());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_append() {
 	this.linkedList.insert(this.watcher1);
 	this.linkedList.append(this.watcher2);
 	assertEquals("< | Quinn AJ >", this.linkedList.toString());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_remove() {
 	assertNull(this.linkedList.remove());
 
@@ -46,6 +55,9 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertEquals("< | AJ Jason Hunter >", this.linkedList.toString());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_clear() {
 	this.linkedList.append(this.watcher1);
 	this.linkedList.append(this.watcher2);
@@ -55,6 +67,9 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertEquals(0, this.linkedList.length());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_moveToStartAndEnd() {
 	this.linkedList.insert(this.watcher1);
 	this.linkedList.insert(this.watcher2);
@@ -66,6 +81,9 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertEquals("Jason", this.linkedList.getValue().getName());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_previousAndNext() {
 	assertFalse(this.linkedList.previous());
 	assertFalse(this.linkedList.next());
@@ -74,6 +92,9 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertTrue(this.linkedList.previous());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_length() {
 	this.linkedList.insert(this.watcher1);
 	this.linkedList.insert(this.watcher2);
@@ -81,6 +102,9 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertEquals(3, this.linkedList.length());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_currentPosition() {
 	this.linkedList.insert(this.watcher1);
 	this.linkedList.insert(this.watcher2);
@@ -91,6 +115,9 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertEquals(2, this.linkedList.currentPosition());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_moveCurrentNodeToPosition() {
 	this.linkedList.insert(this.watcher1); // position 3
 	this.linkedList.insert(this.watcher2); // position 2
@@ -112,12 +139,18 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertEquals("Jason", this.linkedList.getValue().getName());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_getValue() {
 	assertNull(this.linkedList.getValue());
 	this.linkedList.insert(this.watcher1);
 	assertEquals("Quinn", this.linkedList.getValue().getName());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_isAtEnd() {
 	assertTrue(this.linkedList.isAtEnd());
 	this.linkedList.insert(this.watcher1);
@@ -127,6 +160,9 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertTrue(this.linkedList.isAtEnd());
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_findValuePosition() {
 	assertEquals(-1, this.linkedList.findValuePosition(this.watcher2));
 
@@ -143,6 +179,9 @@ public class NamedSinglyLinkedListTest extends junit.framework.TestCase {
 	assertEquals(2, this.linkedList.findValuePosition(this.watcher1));
     }
 
+    /**
+     * Assert for correct output.
+     */
     public void test_toString() {
 	this.linkedList.append(this.watcher1);
 	this.linkedList.append(this.watcher2);

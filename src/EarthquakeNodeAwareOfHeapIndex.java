@@ -1,6 +1,10 @@
 import realtimeweb.earthquakeservice.domain.Earthquake;
 
 /**
+ * Used to store the index of the earthquake within the maxHeap so that when the
+ * same earthquake is dequeued from the queue, it can be quickly removed from an
+ * array-based implemented max-heap.
+ *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 15, 2013
  */
@@ -9,6 +13,11 @@ public class EarthquakeNodeAwareOfHeapIndex implements
     private int indexWithinHeapArray;
     private Earthquake earthquake;
 
+    /**
+     * Create a new EarthquakeNodeAwareOfHeapIndex object.
+     * @param earthquake
+     * @param indexWithinHeapArray Index within max-heap
+     */
     public EarthquakeNodeAwareOfHeapIndex(Earthquake earthquake,
 	    int indexWithinHeapArray) {
 	this.indexWithinHeapArray = indexWithinHeapArray;
@@ -25,6 +34,9 @@ public class EarthquakeNodeAwareOfHeapIndex implements
 	return this.indexWithinHeapArray;
     }
 
+    /**
+     * @return A earthquake object.
+     */
     public Earthquake getEarthquake() {
 	return this.earthquake;
     }

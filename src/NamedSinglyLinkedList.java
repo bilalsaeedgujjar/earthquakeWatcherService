@@ -1,4 +1,3 @@
-
 /**
  * If you have a good idea of how many elements will be in your list that does
  * not change very much you should instead use an array based singly linked
@@ -11,14 +10,19 @@
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 12, 2013
+ * @param <E>
+ *            The Generic object must implement the HasName interface.
  */
 public class NamedSinglyLinkedList<E extends HasName> implements
 	ListInterface<E> {
     private Link<E> head;
     private Link<E> tail;
-    protected Link<E> currentNode;
+    private Link<E> currentNode;
     private int size;
 
+    /**
+     * Create a new NamedSinglyLinkedList object.
+     */
     public NamedSinglyLinkedList() {
 	this.head = this.tail = this.currentNode = new Link<E>(null);
 	this.size = 0;
@@ -125,7 +129,8 @@ public class NamedSinglyLinkedList<E extends HasName> implements
     public int currentPosition() {
 	Link<E> tempNode = this.head;
 	int currentNodePostion;
-	for (currentNodePostion = 0; this.currentNode != tempNode; currentNodePostion++) {
+	for (currentNodePostion = 0; this.currentNode != tempNode;
+		currentNodePostion++) {
 	    tempNode = tempNode.getNextNode();
 	}
 	return currentNodePostion;
@@ -153,6 +158,10 @@ public class NamedSinglyLinkedList<E extends HasName> implements
 	return this.currentNode.getValue();
     }
 
+    /**
+     * @return True if current position is at the tail node; otherwise return
+     *         false.
+     */
     public boolean isAtEnd() {
 	if (this.currentNode == this.tail) {
 	    return true;
@@ -162,6 +171,8 @@ public class NamedSinglyLinkedList<E extends HasName> implements
     }
 
     /**
+     * @param item
+     *            The item to be found.
      * @return Correct position within linked list or -1 if value is not found
      *         within linked list.
      */
