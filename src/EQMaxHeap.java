@@ -182,8 +182,7 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
 		childIndex++; // childIndex is not at index of child with
 			      // greater node value
 	    }
-	    if (this.heap[changingArrayIndex].compareTo(this.heap[childIndex])
-		    >= 0) {
+	    if (this.heap[changingArrayIndex].compareTo(this.heap[childIndex]) >= 0) {
 		return;
 	    }
 	    this.swap(changingArrayIndex, childIndex);
@@ -201,15 +200,13 @@ public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
      */
     void swap(int arrayIndex1, int arrayIndex2) {
 	if (arrayIndex1 < 0 || arrayIndex1 > this.numberOfNodes) {
-	    throw new IllegalArgumentException(
-		    "In method swap of class "
-			    + "MaxHeap the input arrayIndex1 is not a valid " +
-			    "node position");
+	    throw new IllegalArgumentException("In method swap of class "
+		    + "MaxHeap the input arrayIndex1 is not a valid "
+		    + "node position");
 	} else if (arrayIndex2 < 0 || arrayIndex2 > this.numberOfNodes) {
-	    throw new IllegalArgumentException(
-		    "In method swap of class "
-			    + "MaxHeap the input arrayIndex2 is not a valid " +
-			    "node position");
+	    throw new IllegalArgumentException("In method swap of class "
+		    + "MaxHeap the input arrayIndex2 is not a valid "
+		    + "node position");
 	}
 	E tempNodeValue = this.heap[arrayIndex1];
 

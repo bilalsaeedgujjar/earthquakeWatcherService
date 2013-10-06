@@ -157,8 +157,8 @@ public class EqSimpleTest extends junit.framework.TestCase {
 
 	EqSimple.processCommands(commands1);
 
-	assertEquals("\nTristen is added to the watchers list"
-		+ "\nNo record on MaxHeap", outContent.toString());
+	assertEquals("Tristen is added to the watchers list"
+		+ "\nNo record on MaxHeap", outContent.toString().trim());
 
 	EqSimple.processCommands(commands2);
 	assertEquals("\nTristen is added to the watchers list"
@@ -254,7 +254,7 @@ public class EqSimpleTest extends junit.framework.TestCase {
 	Watcher watcher = new Watcher("Sam", 5, 8);
 	EqSimple.processWatcherAddRequest(watcher);
 	assertEquals("Sam is added to the watchers list",
-		outContent.toString());
+		outContent.toString().trim());
 
 	// clean up stream
 	System.setOut(null);
@@ -271,10 +271,10 @@ public class EqSimpleTest extends junit.framework.TestCase {
 	EqSimple.processWatcherAddRequest(watcher1);
 	EqSimple.processWatcherAddRequest(watcher2);
 	EqSimple.processWatcherDeleteRequest(watcher1);
-	assertEquals("\nByron is added to the watchers list"
+	assertEquals("Byron is added to the watchers list"
 		+ "\nJeff Hawkins is added to the watchers list"
 		+ "\nByron is removed from the watchers list",
-		outContent.toString());
+		outContent.toString().trim().trim());
 
 	try {
 	    EqSimple.processWatcherDeleteRequest(watcher3);
@@ -295,7 +295,7 @@ public class EqSimpleTest extends junit.framework.TestCase {
      */
     public void test_printLargestRecentEarthquake() {
 	EqSimple.printLargestRecentEarthquake();
-	assertEquals("\nNo record on MaxHeap", outContent.toString());
+	assertEquals("No record on MaxHeap", outContent.toString().trim());
 
 	// add a few earthquakes with different magnitudes
 	Earthquake earthquakeWithMagnitude10 = new Earthquake(new Coordinate(
@@ -341,9 +341,9 @@ public class EqSimpleTest extends junit.framework.TestCase {
 
 	EqSimple.printLargestRecentEarthquake();
 
-	assertEquals("\nNo record on MaxHeap"
+	assertEquals("No record on MaxHeap"
 		+ "\nLargest earthquake in past 6 hours:"
-		+ "\nMagnitude 50.0 at San Fran", outContent.toString());
+		+ "\nMagnitude 50.0 at San Fran", outContent.toString().trim());
 
 	for (int i = 0; i < 5; i++) {
 	    EqSimple.maxHeapOfRecentEarthquakes.removeMaximumValue();
@@ -351,10 +351,10 @@ public class EqSimpleTest extends junit.framework.TestCase {
 
 	EqSimple.printLargestRecentEarthquake();
 
-	assertEquals("\nNo record on MaxHeap"
+	assertEquals("No record on MaxHeap"
 		+ "\nLargest earthquake in past 6 hours:"
 		+ "\nMagnitude 50.0 at San Fran" + "\nNo record on MaxHeap",
-		outContent.toString());
+		outContent.toString().trim());
 
 	// clean up stream
 	System.setOut(null);
@@ -438,8 +438,8 @@ public class EqSimpleTest extends junit.framework.TestCase {
 	// for farAwayWatcher name AJ
 	// distance = (130^2 + 70^2)^0.5 < 2 * 4^3
 	// = 147.6482 < 124
-	assertEquals("\nEarthquake San Fran is close to Quinn",
-		outContent.toString());
+	assertEquals("Earthquake San Fran is close to Quinn",
+		outContent.toString().trim());
 
 	// clean up stream
 	System.setOut(null);

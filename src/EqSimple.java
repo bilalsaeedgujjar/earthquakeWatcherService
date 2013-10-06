@@ -47,8 +47,7 @@ public class EqSimple {
      * Holds earthquakes that have occured in the past 6 hours in chronological
      * order. Where the front of the Queue contains the oldest earthquake.
      */
-    static LinkedQueue<EarthquakeNodeAwareOfHeapIndex>
-    	linkedQueueOfRecentEarthquakes;
+    static LinkedQueue<EarthquakeNodeAwareOfHeapIndex> linkedQueueOfRecentEarthquakes;
 
     /**
      * Holds the same earthquakes in the linked queue but now the earthquakes
@@ -129,21 +128,19 @@ public class EqSimple {
 	    List<Earthquake> latestEarthquakes = latestQuakesInfo
 		    .getEarthquakes();
 
-	    List<Earthquake> newEarthquakes =
-		    getNewEarthquakes(latestEarthquakes);
+	    List<Earthquake> newEarthquakes = getNewEarthquakes(latestEarthquakes);
 
 	    // add new earthquakes to rear of the earthquakeQueue
 	    // and maxHeap based on magnitude
 	    for (int i = 0; i < newEarthquakes.size(); i++) {
-		EarthquakeNodeAwareOfHeapIndex newEarthquakeNode =
-			new EarthquakeNodeAwareOfHeapIndex(
+		EarthquakeNodeAwareOfHeapIndex newEarthquakeNode = new EarthquakeNodeAwareOfHeapIndex(
 			newEarthquakes.get(i), -1);
 
 		linkedQueueOfRecentEarthquakes.enqueue(newEarthquakeNode);
 		maxHeapOfRecentEarthquakes.insert(newEarthquakeNode);
 
 		if (allParameterGiven) {
-		    System.out.print("\nEarthquake "
+		    System.out.println("Earthquake "
 			    + newEarthquakeNode.getEarthquake()
 				    .getLocationDescription()
 			    + " is inserted into the Heap");
@@ -174,8 +171,8 @@ public class EqSimple {
 	} else {
 	    throw new IllegalArgumentException(
 		    "In method checkForOptionalCommandLineArguments"
-			    + " of class EqSimple the given commands " +
-			    "are invalid");
+			    + " of class EqSimple the given commands "
+			    + "are invalid");
 	}
     }
 
@@ -189,18 +186,15 @@ public class EqSimple {
 	linkedListWatcher = new NamedSinglyLinkedList<Watcher>();
 
 	// store the list of recent earthquake records in order of arrival
-	linkedQueueOfRecentEarthquakes =
-		new LinkedQueue<EarthquakeNodeAwareOfHeapIndex>();
+	linkedQueueOfRecentEarthquakes = new LinkedQueue<EarthquakeNodeAwareOfHeapIndex>();
 
 	int heapCapacity = 1000; // no testing of this program will require more
 				 // than 1000 earthquakes
-	EarthquakeNodeAwareOfHeapIndex[] heap =
-		new EarthquakeNodeAwareOfHeapIndex[heapCapacity];
+	EarthquakeNodeAwareOfHeapIndex[] heap = new EarthquakeNodeAwareOfHeapIndex[heapCapacity];
 
 	// also stores the list of recent earthquakes ordered by earthquake
 	// magnitude
-	maxHeapOfRecentEarthquakes = new
-		EQMaxHeap<EarthquakeNodeAwareOfHeapIndex>(
+	maxHeapOfRecentEarthquakes = new EQMaxHeap<EarthquakeNodeAwareOfHeapIndex>(
 		heap, heapCapacity, 0);
     }
 
@@ -299,8 +293,8 @@ public class EqSimple {
 	if (command.contains("query")) {
 	    throw new IllegalArgumentException(
 		    "In method getWatcherName of class EqSimple"
-			    + " you cannot call this method on a " +
-			    "query command");
+			    + " you cannot call this method on a "
+			    + "query command");
 	} else if (splitCommand.length == 2) {
 	    watcherName = splitCommand[1];
 	} else if (splitCommand.length == 4) {
@@ -357,8 +351,6 @@ public class EqSimple {
 	return latitude;
     }
 
-    private static boolean firstLine = true;
-
     /**
      * Print to console message of adding a watcher to the linked list.
      *
@@ -369,15 +361,8 @@ public class EqSimple {
     static void processWatcherAddRequest(Watcher watcher) {
 	// add watcher to linkedListWatcher to the end of linked list
 	linkedListWatcher.append(watcher);
-
-	if (firstLine) {
-	    System.out.print(watcher.getName()
-		    + " is added to the watchers list");
-	    firstLine = false;
-	} else {
-	    System.out.print("\n" + watcher.getName()
-		    + " is added to the watchers list");
-	}
+	System.out
+		.println(watcher.getName() + " is added to the watchers list");
     }
 
     /**
@@ -399,7 +384,7 @@ public class EqSimple {
 			    + "the given watcher is not in the queue or heap");
 	}
 
-	System.out.print("\n" + watcher.getName()
+	System.out.println(watcher.getName()
 		+ " is removed from the watchers list");
 	return valuePosition; // use to check correct Watcher was removed
     }
@@ -410,13 +395,13 @@ public class EqSimple {
     static void printLargestRecentEarthquake() {
 
 	if (maxHeapOfRecentEarthquakes.getNumberOfNodes() == 0) {
-	    System.out.print("\nNo record on MaxHeap");
+	    System.out.println("No record on MaxHeap");
 	} else {
 	    // greatest magnitude earthquake in past 6 hours
 	    Earthquake biggestEarthquake = maxHeapOfRecentEarthquakes
 		    .getMaximumValue().getEarthquake();
-	    System.out.print("\nLargest earthquake in past 6 hours:");
-	    System.out.print("\nMagnitude " + biggestEarthquake.getMagnitude()
+	    System.out.println("Largest earthquake in past 6 hours:");
+	    System.out.println("Magnitude " + biggestEarthquake.getMagnitude()
 		    + " at " + biggestEarthquake.getLocationDescription());
 	}
     }
@@ -431,8 +416,7 @@ public class EqSimple {
 	while (linkedQueueOfRecentEarthquakes.length() > 0
 		&& timeRangeBetweenOldQuakeAndCurrentTimeGreaterThan6Hours) {
 	    // the front of the queue is holding the oldest earthquakes
-	    Earthquake earthquakeToCheckToBeRemoved =
-		    linkedQueueOfRecentEarthquakes
+	    Earthquake earthquakeToCheckToBeRemoved = linkedQueueOfRecentEarthquakes
 		    .frontValue().getEarthquake();
 	    // unix time definition can be found at:
 	    // http://en.wikipedia.org/wiki/Unix_time
@@ -441,8 +425,7 @@ public class EqSimple {
 	    // if this old earthquake is greater than 6 hours compared to
 	    // the current reported time then remove the outdated
 	    // earthquake
-	    if ((currentReportTime - unixTimeOfOldestQuake) >
-	    	millisecondsInSixHours) {
+	    if ((currentReportTime - unixTimeOfOldestQuake) > millisecondsInSixHours) {
 		int sameQuakeHeapIndex = linkedQueueOfRecentEarthquakes
 			.dequeue().getIndexWithinHeapArray();
 		maxHeapOfRecentEarthquakes.remove(sameQuakeHeapIndex);
@@ -523,7 +506,7 @@ public class EqSimple {
 	    double earthquakeMagnitude = newEarthquake.getMagnitude();
 
 	    if (distance < (2 * Math.pow(earthquakeMagnitude, 3))) {
-		System.out.print("\nEarthquake "
+		System.out.println("Earthquake "
 			+ newEarthquake.getLocationDescription()
 			+ " is close to " + watcher.getName());
 	    }

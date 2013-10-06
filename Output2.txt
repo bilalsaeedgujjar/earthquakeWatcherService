@@ -1,0 +1,234 @@
+E
+Riley at -105.0 -24.0 is added to the BST
+Riley at -105.0 -24.0 is added to the bintree
+Earthquake inserted at 69.29 29.65
+Watcher search caused 1 bintree nodes to be visited.
+Taylor at 21.0 -38.0 is added to the BST
+Taylor at 21.0 -38.0 is added to the bintree
+Riley -105.0 -24.0
+..Taylor 21.0 -38.0
+I
+Riley -105.0 -24.0
+Taylor 21.0 -38.0
+Earthquake inserted at -106.66 -58.3
+Watcher search caused 2 bintree nodes to be visited.
+Earthquake inserted at 51.79 28.93
+Watcher search caused 2 bintree nodes to be visited.
+Earthquake inserted at 80.46 8.25
+Earthquake 19.0km from WSW of Mahakanadarawa, Sri Lanka is close to Taylor
+Watcher search caused 3 bintree nodes to be visited.
+Largest earthquake in past 6 hours: 
+Magnitude 4.4 at 19.0km from WSW of Mahakanadarawa, Sri Lanka
+Nevaeh at -11.0 63.0 is added to the BST
+Nevaeh at -11.0 63.0 is added to the bintree
+Earthquake inserted at 103.75 24.04
+Earthquake 158.0km from NW of Kunming, Yunnan is close to Nevaeh
+Earthquake 158.0km from NW of Kunming, Yunnan is close to Taylor
+Watcher search caused 5 bintree nodes to be visited.
+Dominic at -79.0 37.0 is added to the BST
+Dominic at -79.0 37.0 is added to the bintree
+Taylor duplicates a watcher already in the BST
+Earthquake inserted at -128.36 87.77
+Watcher search caused 4 bintree nodes to be visited.
+Earthquake inserted at 142.01 82.71
+Watcher search caused 2 bintree nodes to be visited.
+Tristan at -117.0 5.0 is added to the BST
+Tristan at -117.0 5.0 is added to the bintree
+Sean at -105.0 -24.0 is added to the BST
+-105.0 -24.0 duplicates a watcher already in the bintree
+Sean is removed from the BST
+Taylor at 21.0 -38.0 is removed from the BST
+Taylor at 21.0 -38.0 is removed from the bintree
+Earthquake inserted at -35.55 15.93
+Earthquake 1170.0km from SSE of Brava--Cachaco, Cape Verde Islands is close to Riley
+Earthquake 1170.0km from SSE of Brava--Cachaco, Cape Verde Islands is close to Tristan
+Earthquake 1170.0km from SSE of Brava--Cachaco, Cape Verde Islands is close to Dominic
+Earthquake 1170.0km from SSE of Brava--Cachaco, Cape Verde Islands is close to Nevaeh
+Watcher search caused 9 bintree nodes to be visited.
+Earthquake inserted at 16.69 -78.89
+Earthquake 913.0km from W of N'lazarevskaya, Dronning Maud Land is close to Riley
+Earthquake 913.0km from W of N'lazarevskaya, Dronning Maud Land is close to Tristan
+Earthquake 913.0km from W of N'lazarevskaya, Dronning Maud Land is close to Dominic
+Earthquake 913.0km from W of N'lazarevskaya, Dronning Maud Land is close to Nevaeh
+Watcher search caused 9 bintree nodes to be visited.
+Earthquake inserted at 108.7 -85.27
+Watcher search caused 2 bintree nodes to be visited.
+....Dominic -79.0 37.0
+..Nevaeh -11.0 63.0
+Riley -105.0 -24.0
+..Tristan -117.0 5.0
+II
+Riley -105.0 -24.0
+I
+Tristan -117.0 5.0
+I
+Dominic -79.0 37.0
+Nevaeh -11.0 63.0
+E
+Earthquake inserted at -16.94 -31.86
+Watcher search caused 3 bintree nodes to be visited.
+Earthquake inserted at 140.04 -25.95
+Earthquake 211.0km from ESE of Innaminka, South Australia is close to Riley
+Earthquake 211.0km from ESE of Innaminka, South Australia is close to Tristan
+Earthquake 211.0km from ESE of Innaminka, South Australia is close to Dominic
+Earthquake 211.0km from ESE of Innaminka, South Australia is close to Nevaeh
+Watcher search caused 9 bintree nodes to be visited.
+Earthquake inserted at -161.51 -55.96
+Watcher search caused 3 bintree nodes to be visited.
+Alexa at -50.0 88.0 is added to the BST
+Alexa at -50.0 88.0 is added to the bintree
+Earthquake inserted at 120.62 -20.34
+Earthquake 123.0km from NE of Marble Bar, Western Australia is close to Riley
+Earthquake 123.0km from NE of Marble Bar, Western Australia is close to Dominic
+Earthquake 123.0km from NE of Marble Bar, Western Australia is close to Alexa
+Earthquake 123.0km from NE of Marble Bar, Western Australia is close to Nevaeh
+Watcher search caused 11 bintree nodes to be visited.
+Earthquake inserted at 40.08 -66.99
+Earthquake 225.0km from E of Syowa Base, Dronning Maud Land is close to Riley
+Earthquake 225.0km from E of Syowa Base, Dronning Maud Land is close to Dominic
+Earthquake 225.0km from E of Syowa Base, Dronning Maud Land is close to Nevaeh
+Watcher search caused 11 bintree nodes to be visited.
+Earthquake inserted at -67.23 89.99
+Earthquake 832.0km from E of Alert, Northwest Territories is close to Dominic
+Earthquake 832.0km from E of Alert, Northwest Territories is close to Alexa
+Earthquake 832.0km from E of Alert, Northwest Territories is close to Nevaeh
+Watcher search caused 11 bintree nodes to be visited.
+Earthquake inserted at 83.66 2.96
+Watcher search caused 2 bintree nodes to be visited.
+Earthquake inserted at -178.48 -31.63
+Watcher search caused 3 bintree nodes to be visited.
+Earthquake inserted at 117.12 -9.72
+Watcher search caused 2 bintree nodes to be visited.
+Earthquake inserted at -168.94 -14.04
+Earthquake 306.0km from N of Afiamalu, Samoa Islands is close to Riley
+Earthquake 306.0km from N of Afiamalu, Samoa Islands is close to Tristan
+Watcher search caused 9 bintree nodes to be visited.
+......Alexa -50.0 88.0
+....Dominic -79.0 37.0
+..Nevaeh -11.0 63.0
+Riley -105.0 -24.0
+..Tristan -117.0 5.0
+II
+Riley -105.0 -24.0
+I
+Tristan -117.0 5.0
+I
+Dominic -79.0 37.0
+I
+Alexa -50.0 88.0
+Nevaeh -11.0 63.0
+E
+Earthquake inserted at -34.34 53.75
+Watcher search caused 6 bintree nodes to be visited.
+John at 10.0 -80.0 is added to the BST
+John at 10.0 -80.0 is added to the bintree
+Notexist does not appear in the BST
+Earthquake inserted at 31.32 -53.35
+Earthquake 851.0km from SW of Marion Island, Prince Edward Islands is close to Nevaeh
+Earthquake 851.0km from SW of Marion Island, Prince Edward Islands is close to John
+Watcher search caused 11 bintree nodes to be visited.
+Penny at 55.0 -80.0 is added to the BST
+Penny at 55.0 -80.0 is added to the bintree
+Earthquake inserted at 50.79 -45.96
+Earthquake 80.0km from SSE of CROZET ISLANDS HYDROACOUSTIC SITE N1, Crozet Islands is close to John
+Earthquake 80.0km from SSE of CROZET ISLANDS HYDROACOUSTIC SITE N1, Crozet Islands is close to Penny
+Watcher search caused 18 bintree nodes to be visited.
+......Alexa -50.0 88.0
+....Dominic -79.0 37.0
+......John 10.0 -80.0
+..Nevaeh -11.0 63.0
+....Penny 55.0 -80.0
+Riley -105.0 -24.0
+..Tristan -117.0 5.0
+II
+Riley -105.0 -24.0
+I
+Tristan -117.0 5.0
+I
+Dominic -79.0 37.0
+I
+Alexa -50.0 88.0
+Nevaeh -11.0 63.0
+IIII
+John 10.0 -80.0
+Penny 55.0 -80.0
+EEE
+Earthquake inserted at 62.92 -58.72
+Earthquake 988.0km from E of Mawson, Mac Robertson Land is close to Nevaeh
+Earthquake 988.0km from E of Mawson, Mac Robertson Land is close to John
+Earthquake 988.0km from E of Mawson, Mac Robertson Land is close to Penny
+Watcher search caused 19 bintree nodes to be visited.
+Earthquake inserted at 139.72 24.71
+Watcher search caused 3 bintree nodes to be visited.
+John at 10.0 -80.0 is removed from the BST
+John at 10.0 -80.0 is removed from the bintree
+......Alexa -50.0 88.0
+....Dominic -79.0 37.0
+..Nevaeh -11.0 63.0
+....Penny 55.0 -80.0
+Riley -105.0 -24.0
+..Tristan -117.0 5.0
+II
+Riley -105.0 -24.0
+I
+Tristan -117.0 5.0
+I
+Dominic -79.0 37.0
+I
+Alexa -50.0 88.0
+Nevaeh -11.0 63.0
+Penny 55.0 -80.0
+Earthquake inserted at -38.95 -18.5
+Earthquake 177.0km from NNE of Linhares ES, Espirito Santo is close to Riley
+Earthquake 177.0km from NNE of Linhares ES, Espirito Santo is close to Tristan
+Earthquake 177.0km from NNE of Linhares ES, Espirito Santo is close to Dominic
+Earthquake 177.0km from NNE of Linhares ES, Espirito Santo is close to Nevaeh
+Watcher search caused 11 bintree nodes to be visited.
+Nevaeh at -11.0 63.0 is removed from the BST
+Nevaeh at -11.0 63.0 is removed from the bintree
+....Alexa -50.0 88.0
+..Dominic -79.0 37.0
+....Penny 55.0 -80.0
+Riley -105.0 -24.0
+..Tristan -117.0 5.0
+II
+Riley -105.0 -24.0
+I
+Tristan -117.0 5.0
+I
+Dominic -79.0 37.0
+Alexa -50.0 88.0
+Penny 55.0 -80.0
+Earthquake inserted at -156.22 25.95
+Earthquake 508.0km from ENE of Opana, Hawaii is close to Riley
+Earthquake 508.0km from ENE of Opana, Hawaii is close to Tristan
+Earthquake 508.0km from ENE of Opana, Hawaii is close to Dominic
+Earthquake 508.0km from ENE of Opana, Hawaii is close to Alexa
+Earthquake 508.0km from ENE of Opana, Hawaii is close to Penny
+Watcher search caused 9 bintree nodes to be visited.
+Earthquake inserted at 68.97 26.61
+Earthquake 160.0km from ESE of Umerkot, Pakistan is close to Riley
+Earthquake 160.0km from ESE of Umerkot, Pakistan is close to Tristan
+Earthquake 160.0km from ESE of Umerkot, Pakistan is close to Dominic
+Earthquake 160.0km from ESE of Umerkot, Pakistan is close to Alexa
+Earthquake 160.0km from ESE of Umerkot, Pakistan is close to Penny
+Watcher search caused 9 bintree nodes to be visited.
+Riley at -105.0 -24.0 is removed from the BST
+Riley at -105.0 -24.0 is removed from the bintree
+Dominic at -79.0 37.0 is removed from the BST
+Dominic at -79.0 37.0 is removed from the bintree
+Tristan at -117.0 5.0 is removed from the BST
+Tristan at -117.0 5.0 is removed from the bintree
+Earthquake inserted at 114.68 46.03
+Watcher search caused 2 bintree nodes to be visited.
+Earthquake inserted at -56.2 -73.11
+Watcher search caused 2 bintree nodes to be visited.
+Earthquake inserted at -94.57 17.33
+Watcher search caused 2 bintree nodes to be visited.
+Alexa at -50.0 88.0 is removed from the BST
+Alexa at -50.0 88.0 is removed from the bintree
+Penny 55.0 -80.0
+Penny 55.0 -80.0
+Penny at 55.0 -80.0 is removed from the BST
+Penny at 55.0 -80.0 is removed from the bintree
+E
