@@ -2,8 +2,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
-import realtimeweb.earthquakeservice.domain.Earthquake;
 import realtimeweb.earthquakeservice.domain.History;
 import realtimeweb.earthquakeservice.domain.Report;
 import realtimeweb.earthquakeservice.domain.Threshold;
@@ -30,11 +28,11 @@ import realtimeweb.earthquakewatchers.WatcherService;
  * the discussion or modifies any computer file during the discussion. I have
  * violated neither the spirit nor letter of this restriction
  *
- * Please visit http://mickey.cs.vt.edu/cs3114-earthquake/ for more
- * documentation on the below code.
+ * Please visit http://mickey.cs.vt.edu/cs3114-earthquake/ to view the API for
+ * the calles to EarthquakeService and WatcherService.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 6, 2013
+ * @version Oct 8, 2013
  */
 public class EqSpatial {
     private static EarthquakeService earthquakeService;
@@ -79,43 +77,10 @@ public class EqSpatial {
 
 	    ews.processCommands(nextCommands);
 
-	    Report latestQuakesInfo = earthquakeService.getEarthquakes(
+	    Report latestQuakesReport = earthquakeService.getEarthquakes(
 		    Threshold.ALL, History.HOUR);
 
-
-	    long currentReportTime = latestQuakesInfo.getGeneratedTime();
-	    ews.setCurrentReportTime(currentReportTime);
-
-	    ews.removeExpiredEarthquakesInQueueAndMaxHeap();
-
-	    // earthquakes that have occurred in the recent hour time step
-	    List<Earthquake> latestEarthquakes = latestQuakesInfo
-		    .getEarthquakes();
-
-	    // TODO: pass latestEarthquakes into ews object and have it figure
-	    // out everything else including adding to linked queue and
-	    // max heap
-
-	    List<Earthquake> newEarthquakes = ews
-		    .getNewEarthquakes(latestEarthquakes);
-
-	    // add new earthquakes to rear of the earthquakeQueue
-	    // and maxHeap based on magnitude
-	    for (int i = 0; i < newEarthquakes.size(); i++) {
-		EarthquakeNodeAwareOfHeapIndex newEarthquakeNode = new EarthquakeNodeAwareOfHeapIndex(
-			newEarthquakes.get(i), -1);
-
-		// TODO: add to linked queue and max heap within ews
-		linkedQueueOfRecentEarthquakes.enqueue(newEarthquakeNode);
-		maxHeapOfRecentEarthquakes.insert(newEarthquakeNode);
-
-		System.out.println("Earthquake "
-			+ newEarthquakeNode.getEarthquake()
-				.getLocationDescription()
-			+ " is inserted into the Heap");
-
-		ews.updateRelevantWatchersOfNewEarthquake(newEarthquakes.get(i));
-	    }
+	    ews.processLatestEarthquakesReport(latestQuakesReport);
 	}
     }
 }

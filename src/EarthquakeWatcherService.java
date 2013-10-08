@@ -1,3 +1,5 @@
+import realtimeweb.earthquakeservice.domain.Report;
+
 import java.util.List;
 import realtimeweb.earthquakeservice.domain.Coordinate;
 
@@ -253,10 +255,28 @@ public class EarthquakeWatcherService {
      *
      */
     public void processWatcherAddRequest(Watcher watcher) {
-	// add watcher to linkedListWatcher to the end of linked list
+	// TODO: adding a watcher can be successful or unsuccessful.
+	// if (watcherName is duplicate in BST or watcherCoordinate is duplicat
+	// in BinTree)
+	// then reject
+
+	// TODO: first attempt to insert into BST then BinTree and print
+	System.out.println(watcher.getName()
+		+ " duplicates a watcher already in the BST");
+
+	// if the coordinate is a duplicate, since you have already added the
+	// watcher's name to the BST, you also need to remove it again
+	System.out.println("<coordinate>"
+		+ " duplicates a watcher already in the bintree");
+	// remove watcher from BST
+	System.out.println(watcher.getName() + " is removed from the BST");
+
 	linkedListWatcher.append(watcher);
-	System.out
-		.println(watcher.getName() + " is added to the watchers list");
+	// when the wacther's name or coordinate is not duplicated
+	System.out.println(watcher.getName() + " at " + "<coordinate>"
+		+ " is added to the BST");
+	System.out.println(watcher.getName() + " at " + "<coordinate>"
+		+ " is added to the bintree");
     }
 
     /**
@@ -408,7 +428,44 @@ public class EarthquakeWatcherService {
 	}
     }
 
+    public void processLatestEarthquakesReport(Report latestQuakesReport) {
+	long currentReportTime = latestQuakesReport.getGeneratedTime();
+	this.setCurrentReportTime(currentReportTime);
+
+	this.removeExpiredEarthquakesInQueueAndMaxHeap();
+
+	// earthquakes that have occurred in the recent hour time step
+	List<Earthquake> latestEarthquakes = latestQuakesReport
+		.getEarthquakes();
+
+	List<Earthquake> newEarthquakes = this
+		.getNewEarthquakes(latestEarthquakes);
+
+	// add new earthquakes to rear of the earthquakeQueue
+	// and maxHeap based on magnitude
+	for (int i = 0; i < newEarthquakes.size(); i++) {
+	    EarthquakeNodeAwareOfHeapIndex newEarthquakeNode = new EarthquakeNodeAwareOfHeapIndex(
+		    newEarthquakes.get(i), -1);
+
+	    // add to linked queue and max heap within ews
+	    this.addNewEarthquakeToQueueAndMaxHeap(newEarthquakeNode);
+
+	    System.out.println("Earthquake "
+		    + newEarthquakeNode.getEarthquake()
+			    .getLocationDescription()
+		    + " is inserted into the Heap");
+
+	    this.updateRelevantWatchersOfNewEarthquake(newEarthquakes.get(i));
+	}
+    }
+
     public void setCurrentReportTime(long currentReportTime) {
 	this.currentReportTime = currentReportTime;
+    }
+
+    public void addNewEarthquakeToQueueAndMaxHeap(
+	    EarthquakeNodeAwareOfHeapIndex newEarthquakeNode) {
+	linkedQueueOfRecentEarthquakes.enqueue(newEarthquakeNode);
+	maxHeapOfRecentEarthquakes.insert(newEarthquakeNode);
     }
 }
