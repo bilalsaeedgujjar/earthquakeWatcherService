@@ -260,6 +260,9 @@ public class EarthquakeWatcherService {
 	// in BinTree)
 	// then reject
 
+	// TODO: convert to the bintree's coordinate system by
+	// adding 180 to longitude and adding 90 to the latitude
+
 	// TODO: first attempt to insert into BST then BinTree and print
 	System.out.println(watcher.getName()
 		+ " duplicates a watcher already in the BST");
