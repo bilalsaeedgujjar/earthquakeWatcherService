@@ -182,8 +182,7 @@ public class EarthquakeWatcherService {
 		this.processWatcherAddRequest(newWatcher);
 	    } else if (command.contains("delete")) {
 		String watcherName = this.getWatcherName(command);
-		Watcher newWatcher = new Watcher(watcherName, -1, -1);
-		this.processWatcherDeleteRequest(newWatcher);
+		this.processWatcherDeleteRequest(watcherName);
 	    } else if (command.contains("query")) {
 		this.printLargestRecentEarthquake();
 	    }
@@ -319,28 +318,32 @@ public class EarthquakeWatcherService {
 	}
     }
 
-    /**
-     * Print to console message of deleting a watcher from the linked list.
-     *
-     * @param watcher
-     *            Watcher to be deleted.
-     * @return The location in the linked list where the watcher was deleted.
-     */
-    public int processWatcherDeleteRequest(Watcher watcher) {
-	// remove watcher from linkedListWatcher
-	int valuePosition = linkedListWatcher.findValuePosition(watcher);
-	if (valuePosition != -1) {
-	    linkedListWatcher.moveCurrentNodeToPosition(valuePosition);
-	    linkedListWatcher.remove();
+    public boolean processWatcherDeleteRequest(String watcherName) {
+	if (this.BST.remove(watcherName) == null) {
+	    // watcher does not exist within BST or bintree
+	    System.out.println(watcherName + " does not appear in the BST");
+	    return false;
 	} else {
-	    throw new IllegalArgumentException(
-		    "In method processWatcherDeleteRequest of class EarthquakeWatcherService"
-			    + "the given watcher is not in the queue or heap");
-	}
+	    // watcher does exist within BST & bintree
+	    Watcher removedWatcher = this.BST.remove(watcherName);
 
-	System.out.println(watcher.getName()
-		+ " is removed from the watchers list");
-	return valuePosition; // use to check correct Watcher was removed
+	    Point removedWatcherLocation = new Point(
+		    removedWatcher.getLongitude(), removedWatcher.getLatitude());
+	    this.binTree.remove(removedWatcherLocation, removedWatcher);
+
+	    // printout must be original longitude and latitude
+	    double originalLongitude = removedWatcher.getLongitude() - 180.0;
+	    double originalLatitude = removedWatcher.getLatitude() - 90.0;
+	    System.out.println(watcherName + " "
+		    + this.df.format(originalLongitude) + " "
+		    + this.df.format(originalLatitude)
+		    + " is removed from the BST");
+	    System.out.println(watcherName + " "
+		    + this.df.format(originalLongitude) + " "
+		    + this.df.format(originalLatitude)
+		    + " is removed from the bintree");
+	    return true;
+	}
     }
 
     /**
