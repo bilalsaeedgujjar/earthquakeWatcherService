@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 import realtimeweb.earthquakeservice.domain.Report;
 import java.util.List;
 import realtimeweb.earthquakeservice.domain.Coordinate;
@@ -13,9 +15,18 @@ import realtimeweb.earthquakewatchers.WatcherService;
  */
 public class EarthquakeWatcherService {
     /**
-     * Holds all the current Watchers to update about close by earthquakes.
+     * Holds all the current Watchers to update about close by earthquakes. The
+     * name of a watcher is used as a key to allow efficient search of watchers
+     * in the binary search tree by name.
      */
-    // TODO: add bin tree and binary search tree
+    private BinarySearchTree<String, Watcher> BST;
+
+    /**
+     * Holds all the current Watchers to update about close by earthquakes. The
+     * coordinate location of a watcher is used as a key to allow efficient
+     * search of watchers in the 2 dimensional bin tree tree by (x, y) location.
+     */
+    private BinTree2D<Point, Watcher> binTree;
 
     /**
      * Holds earthquakes that have occurred in the past 6 hours in chronological
@@ -46,6 +57,7 @@ public class EarthquakeWatcherService {
     private boolean liveCommandGiven = false;
 
     private String[] commandLineArguments;
+    private DecimalFormat df = new DecimalFormat("#.0");
 
     /**
      * Construct a bin tree and binary search tree to store watchers. Construct
@@ -55,7 +67,9 @@ public class EarthquakeWatcherService {
     public EarthquakeWatcherService(String[] commandLineArguments) {
 	this.commandLineArguments = commandLineArguments;
 
-	// TODO: initialize bin tree and binary search tree
+	// initialize bin tree and binary search tree
+	this.BST = new BinarySearchTree<String, Watcher>();
+	this.binTree = new BinTree2D<>(0.0, 360.0, 0.0, 180.0);
 
 	// store the list of recent earthquake records in order of arrival
 	linkedQueueOfRecentEarthquakes = new LinkedQueue<EarthquakeNodeAwareOfHeapIndex>();
@@ -155,10 +169,16 @@ public class EarthquakeWatcherService {
 	    if (command.contains("add")) {
 		String watcherName = this.getWatcherName(command);
 
-		int longitude = this.getLongitude(command);
-		int latitude = this.getLatitude(command);
-		Watcher newWatcher = new Watcher(watcherName, longitude,
-			latitude);
+		double longitude = this.getLongitude(command);
+		double latitude = this.getLatitude(command);
+
+		// convert to the bintree's coordinate system by
+		// adding 180 to longitude and adding 90 to the latitude
+		double convertedLongitude = longitude + 180;
+		double convertedLatitude = latitude + 90;
+
+		Watcher newWatcher = new Watcher(watcherName,
+			convertedLongitude, convertedLatitude);
 		this.processWatcherAddRequest(newWatcher);
 	    } else if (command.contains("delete")) {
 		String watcherName = this.getWatcherName(command);
@@ -252,31 +272,51 @@ public class EarthquakeWatcherService {
      *
      */
     public void processWatcherAddRequest(Watcher watcher) {
-	// TODO: adding a watcher can be successful or unsuccessful.
-	// if (watcherName is duplicate in BST or watcherCoordinate is duplicat
-	// in BinTree)
-	// then reject
+	// adding a watcher can be successful or unsuccessful
+	// --------------------------BST------------------------------
+	if (this.BST.find(watcher.getName()) == null) {
+	    // when the watcher's name is not duplicated in the BST
+	    this.BST.insert(watcher.getName(), watcher);
 
-	// TODO: convert to the bintree's coordinate system by
-	// adding 180 to longitude and adding 90 to the latitude
+	    double originalLongitude = watcher.getLongitude() - 180.0;
+	    double originalLatitude = watcher.getLatitude() - 90.0;
+	    System.out
+		    .println(watcher.getName()
+			    + this.df.format(originalLongitude) + " "
+			    + this.df.format(originalLatitude)
+			    + " is added to the BST");
+	} else {
+	    // watcher already exists within BST and bintree
+	    System.out.println(watcher.getName()
+		    + " duplicates a watcher already in the BST");
+	}
 
-	// TODO: first attempt to insert into BST then BinTree and print
-	System.out.println(watcher.getName()
-		+ " duplicates a watcher already in the BST");
+	// --------------------------BinTree--------------------------
+	Point watcherLocation = new Point(watcher.getLongitude(),
+		watcher.getLatitude());
+	if (this.binTree.find(watcherLocation, watcher) == null) {
+	    // watcherLocation is not duplicated in the bin tree
+	    this.binTree.insert(watcherLocation, watcher);
 
-	// if the coordinate is a duplicate, since you have already added the
-	// watcher's name to the BST, you also need to remove it again
-	System.out.println("<coordinate>"
-		+ " duplicates a watcher already in the bintree");
-	// remove watcher from BST
-	System.out.println(watcher.getName() + " is removed from the BST");
+	    double originalLongitude = watcher.getLongitude() - 180.0;
+	    double originalLatitude = watcher.getLatitude() - 90.0;
+	    System.out.println(watcher.getName()
+		    + this.df.format(originalLongitude) + " "
+		    + this.df.format(originalLatitude)
+		    + " is added to the bintree");
+	} else { // watcherLocation is already in the bin tree
+	    double originalLongitude = watcher.getLongitude() - 180.0;
+	    double originalLatitude = watcher.getLatitude() - 90.0;
+	    System.out.println(this.df.format(originalLongitude) + " "
+		    + this.df.format(originalLatitude)
+		    + " duplicates a watcher already in the bintree");
 
-	linkedListWatcher.append(watcher);
-	// when the wacther's name or coordinate is not duplicated
-	System.out.println(watcher.getName() + " at " + "<coordinate>"
-		+ " is added to the BST");
-	System.out.println(watcher.getName() + " at " + "<coordinate>"
-		+ " is added to the bintree");
+	    // remove the most recently added watcher's name in the BST
+	    // since it's coordinate duplicated a coordinate already in the
+	    // bintree
+	    this.BST.remove(watcher.getName());
+	    System.out.println(watcher.getName() + " is removed from the BST");
+	}
     }
 
     /**

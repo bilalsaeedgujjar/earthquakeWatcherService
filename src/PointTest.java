@@ -1,5 +1,3 @@
-
-
 /**
  * Tests all logic within Point class.
  *
