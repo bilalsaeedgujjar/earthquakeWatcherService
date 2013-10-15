@@ -1,18 +1,15 @@
 import realtimeweb.earthquakeservice.domain.Report;
-
 import java.util.List;
 import realtimeweb.earthquakeservice.domain.Coordinate;
-
 import realtimeweb.earthquakeservice.domain.Earthquake;
-
 import java.util.ArrayList;
-
 import realtimeweb.earthquakeservice.regular.EarthquakeService;
 import realtimeweb.earthquakewatchers.WatcherService;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 6, 2013
+ * @author Byron Becker (byronb92@vt.edu)
+ * @version Oct 15, 2013
  */
 public class EarthquakeWatcherService {
     /**
@@ -21,7 +18,7 @@ public class EarthquakeWatcherService {
     // TODO: add bin tree and binary search tree
 
     /**
-     * Holds earthquakes that have occured in the past 6 hours in chronological
+     * Holds earthquakes that have occurred in the past 6 hours in chronological
      * order. The front of the Queue contains the oldest earthquake.
      */
     private LinkedQueue<EarthquakeNodeAwareOfHeapIndex> linkedQueueOfRecentEarthquakes;
