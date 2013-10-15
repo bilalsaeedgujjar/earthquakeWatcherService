@@ -431,46 +431,6 @@ public class EarthquakeWatcherService {
 	}
     }
 
-    /**
-     * Update any watchers that have a distance < 2 * Magnitude of
-     * newEarthquake. Here distance is defined as ((longitude_earthquake -
-     * longitude_watcher)^2 + (latitude_earthquake - latitude_watcher)^2)^0.5
-     *
-     * @param newEarthquake
-     *            The new earthquake that needs to be known by close by
-     *            watchers.
-     */
-    public void updateRelevantWatchersOfNewEarthquake(Earthquake newEarthquake) {
-	Coordinate earthquakeCoordinate = newEarthquake.getLocation();
-	double longitudeEarthquake = earthquakeCoordinate.getLongitude();
-	double latitudeEarthquake = earthquakeCoordinate.getLatitude();
-
-	// iterate through all current watchers and see if they are close to the
-	// current earthquake
-	linkedListWatcher.moveToStart(); // current node at head
-	while (!linkedListWatcher.isAtEnd()) {
-
-	    Watcher watcher = linkedListWatcher.getValue();
-	    double longitudeWatcher = watcher.getLongitude();
-	    double latitudeWatcher = watcher.getLatitude();
-
-	    double longitudeDifference = longitudeEarthquake - longitudeWatcher;
-	    double latitudeDifference = latitudeEarthquake - latitudeWatcher;
-
-	    double distance = Math.sqrt(Math.pow(longitudeDifference, 2)
-		    + Math.pow(latitudeDifference, 2));
-
-	    double earthquakeMagnitude = newEarthquake.getMagnitude();
-
-	    if (distance < (2 * Math.pow(earthquakeMagnitude, 3))) {
-		System.out.println("Earthquake "
-			+ newEarthquake.getLocationDescription()
-			+ " is close to " + watcher.getName());
-	    }
-	    linkedListWatcher.next();
-	}
-    }
-
     public void processLatestEarthquakesReport(Report latestQuakesReport) {
 	long currentReportTime = latestQuakesReport.getGeneratedTime();
 	this.setCurrentReportTime(currentReportTime);
@@ -498,6 +458,7 @@ public class EarthquakeWatcherService {
 			    .getLocationDescription()
 		    + " is inserted into the Heap");
 
+	    // TODO: call this.bintree.regionSearch(newEarthquakes.get(i));
 	    this.updateRelevantWatchersOfNewEarthquake(newEarthquakes.get(i));
 	}
     }
