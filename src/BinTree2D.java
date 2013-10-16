@@ -412,8 +412,8 @@ public class BinTree2D<K extends Point, E> {
     // TODO: remove earthquake and just pass in 3 parameters
     public String regionSearch(Earthquake earthquake) {
 	// TODO: make sure the adjust coordinates in method call
-	double earthquakeLongitude = earthquake.getLocation().getLongitude();
-	double earthquakeLatitude = earthquake.getLocation().getLatitude();
+	double earthquakeLongitude = earthquake.getLocation().getLongitude() + 180.0;
+	double earthquakeLatitude = earthquake.getLocation().getLatitude() + 90.0;
 	double earthquakeMagnitude = earthquake.getMagnitude();
 
 	double radius = Math.pow(earthquakeMagnitude, 3) * 2;
@@ -433,7 +433,6 @@ public class BinTree2D<K extends Point, E> {
 	int numberOfBinTreeNodesVisited = this.regionSearchHelp(this.rootNode,
 		currentWorld, earthquakeBoundingBox, new Point(
 			earthquakeLongitude, earthquakeLatitude), radius, true);
-
 	return "Watcher search caused " + numberOfBinTreeNodesVisited
 		+ " bintree nodes to be visited.";
     }
@@ -470,6 +469,7 @@ public class BinTree2D<K extends Point, E> {
 		    // current node should go to left subtree
 		    double worldX = currentWorld.getBottomLeftPoint().getX();
 		    double worldY = currentWorld.getBottomLeftPoint().getY();
+
 		    BoundingBox leftWorld = new BoundingBox(new Point(worldX,
 			    worldY), currentWorld.getWidth(),
 			    currentWorld.getHeight());
@@ -480,6 +480,7 @@ public class BinTree2D<K extends Point, E> {
 			    worldY), currentWorld.getWidth(),
 			    currentWorld.getHeight());
 		    rightWorld.changeToRightHalfBoundingBox();
+
 
 		    return 1
 			    + this.regionSearchHelp(
@@ -504,13 +505,13 @@ public class BinTree2D<K extends Point, E> {
 		    BoundingBox leftWorld = new BoundingBox(new Point(worldX,
 			    worldY), currentWorld.getWidth(),
 			    currentWorld.getHeight());
-		    leftWorld.changeToLeftHalfBoundingBox();
+		    leftWorld.changeToBottomHalfBoundingBox();
 
 		    // current node should go to right subtree
 		    BoundingBox rightWorld = new BoundingBox(new Point(worldX,
 			    worldY), currentWorld.getWidth(),
 			    currentWorld.getHeight());
-		    rightWorld.changeToRightHalfBoundingBox();
+		    rightWorld.changeToTopHalfBoundingBox();
 
 		    return 1
 			    + this.regionSearchHelp(
@@ -624,8 +625,7 @@ public class BinTree2D<K extends Point, E> {
 		    .preorderTraversal(((BinTreeInternalNode<E>) node)
 			    .getRightChild()));
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
-	    stringBuilder.append((((BinTreeLeafNode<K, E>) node).getElement())
-		    .toString() + "\n");
+	    stringBuilder.append(((BinTreeLeafNode<K, E>) node).toString() + "\n");
 	}
 	return stringBuilder.toString();
     }

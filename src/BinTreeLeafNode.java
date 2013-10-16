@@ -50,12 +50,7 @@ public class BinTreeLeafNode<K extends Point, E> extends
     @Override
     public String toString() {
 	StringBuilder stringBuilder = new StringBuilder();
-	stringBuilder.append("\n====Bin Tree Leaf Node====");
-	stringBuilder.append("\nkey: ");
-	stringBuilder.append(this.key.toString());
-	stringBuilder.append("\n   element: ");
 	stringBuilder.append(this.element.toString());
-	stringBuilder.append("\n==========================");
 	String binTreeInformation = stringBuilder.toString();
 	return binTreeInformation;
     }

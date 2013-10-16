@@ -286,10 +286,7 @@ public class EarthquakeWatcherService {
 	    double originalLongitude = watcher.getLongitude() - 180.0;
 	    double originalLatitude = watcher.getLatitude() - 90.0;
 	    System.out
-		    .println(watcher.getName() + " "
-			    + this.df.format(originalLongitude) + " "
-			    + this.df.format(originalLatitude)
-			    + " is added to the BST");
+		    .println(watcher.toString() + " is added to the BST");
 	    return true;
 	} else {
 	    // watcher already exists within BST and bintree
@@ -470,10 +467,9 @@ public class EarthquakeWatcherService {
 		    .getLocation().getLatitude();
 
 	    // change printout pattern for just this earthquake
-	    this.df.applyPattern("#.00");
 	    System.out.println("Earthquake inserted at "
-		    + this.df.format(earthquakeLongitude) + " "
-		    + this.df.format(earthquakeLatitude));
+		    + earthquakeLongitude + " "
+		    + earthquakeLatitude);
 	    this.df.applyPattern("#.0");
 
 	    System.out.println(newEarthquakeNode.getEarthquake()

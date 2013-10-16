@@ -46,34 +46,23 @@ public class EarthquakeWatcherServiceTest extends student.TestCase {
      * TODO: Test different add, query and delete commands.
      */
     public void test_processCommands() {
-	ArrayList<String> commands1 = new ArrayList<String>();
-	commands1.add("add -105.7 -24.3 Riley");
+	ArrayList<String> commands = new ArrayList<String>();
+	commands.add("debug");
+	commands.add("add -105.7 -24.3 Riley");
+	commands.add("add 21.2 -38.6 Taylor");
+	commands.add("debug");
 
-	this.EWS.processCommands(commands1);
-
-	assertFuzzyEquals("Riley -105.7 -24.3 is added to the BST"
-		+ "\nRiley -105.7 -24.3 is added to the bintree", outContent
+	this.EWS.processCommands(commands);
+	assertEquals("E" + "\nRiley -105.7 -24.3 is added to the BST"
+		+ "\nRiley -105.7 -24.3 is added to the bintree"
+		+ "\nTaylor 21.2 -38.6 is added to the BST"
+		+ "\nTaylor 21.2 -38.6 is added to the bintree"
+		+ "\nRiley -105.7 -24.3"
+		+ "\n..Taylor 21.2 -38.6"
+		+ "\nI"
+		+ "\nRiley -105.7 -24.3"
+		+ "\nTaylor 21.2 -38.6", outContent
 		.toString().trim());
-
-//	ArrayList<String> commands2 = new ArrayList<String>();
-//	commands2.add("delete	Tristen");
-//
-//	this.EWS.processCommands(commands2);
-//	assertFuzzyEquals("Tristen 81.0 174.0 is added to the BST"
-//		+ "\nTristen 81.0 174.0 is added to the bintree"
-//		+ "\nTristen 81.0 174.0 is removed from the BST"
-//		+ "\nTristen 81.0 174.0 is removed from the bintree",
-//		outContent.toString().trim());
-//
-//	ArrayList<String> commands3 = new ArrayList<String>();
-//	commands3.add("add -105.7 -24.3 Riley");
-//	commands3.add("add 21.2 -38.6 Taylor");
-//	commands3.add("debug");
-//	this.EWS.processCommands(commands3);
-//	assertEquals("\nTristen is added to the watchers list"
-//		+ "\nNo record on MaxHeap"
-//		+ "\nTristen is removed from the watchers list", outContent
-//		.toString().trim());
     }
 
     /**

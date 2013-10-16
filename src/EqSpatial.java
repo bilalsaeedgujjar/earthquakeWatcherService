@@ -29,7 +29,7 @@ import realtimeweb.earthquakewatchers.WatcherService;
  * violated neither the spirit nor letter of this restriction
  *
  * Please visit http://mickey.cs.vt.edu/cs3114-earthquake/ to view the API for
- * the calles to EarthquakeService and WatcherService.
+ * the calls to EarthquakeService and WatcherService.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 15, 2013
