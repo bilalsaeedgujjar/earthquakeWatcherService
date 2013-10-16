@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 15, 2013
@@ -7,8 +9,11 @@ public class Watcher implements HasName {
     private double longitude;
     private double latitude;
 
+    private DecimalFormat df = new DecimalFormat("#.0");
+
     /**
      * Create a new Watcher object.
+     *
      * @param name
      * @param longitude
      * @param latitude
@@ -72,5 +77,14 @@ public class Watcher implements HasName {
 	} else if (!name.equals(other.name))
 	    return false;
 	return true;
+    }
+
+    // TODO: test
+    @Override
+    public String toString() {
+	double longitude = this.longitude - 180.0;
+	double latitude = this.latitude - 90.0;
+	return this.name + " " + this.df.format(longitude) + " " +
+		this.df.format(latitude);
     }
 }

@@ -175,9 +175,12 @@ public class EarthquakeWatcherService {
 	    } else if (command.contains("query")) {
 		this.printLargestRecentEarthquake();
 	    } else if (command.contains("debug")) {
-		System.out.println(this.BST.inorderTraversal(
+		// BST toString already has extra newline
+		System.out.print(this.BST.inorderTraversal(
 			this.BST.getRootNode(), 0));
-		System.out.println(this.binTree.preorderTraversal(this.binTree
+
+		// binTree toString already has extra newline
+		System.out.print(this.binTree.preorderTraversal(this.binTree
 			.getRootNode()));
 	    }
 	}
@@ -282,8 +285,11 @@ public class EarthquakeWatcherService {
 	    // convert back to the coordinates given through the earthquake API
 	    double originalLongitude = watcher.getLongitude() - 180.0;
 	    double originalLatitude = watcher.getLatitude() - 90.0;
-	    System.out.println(watcher.getName() + " " + originalLongitude
-		    + " " + originalLatitude + " is added to the BST");
+	    System.out
+		    .println(watcher.getName() + " "
+			    + this.df.format(originalLongitude) + " "
+			    + this.df.format(originalLatitude)
+			    + " is added to the BST");
 	    return true;
 	} else {
 	    // watcher already exists within BST and bintree
@@ -458,13 +464,26 @@ public class EarthquakeWatcherService {
 	    // add to linked queue and max heap within ews
 	    this.addNewEarthquakeToQueueAndMaxHeap(newEarthquakeNode);
 
-	    System.out.println("Earthquake "
-		    + newEarthquakeNode.getEarthquake()
-			    .getLocationDescription()
-		    + " is inserted into the Heap");
+	    double earthquakeLongitude = newEarthquakeNode.getEarthquake()
+		    .getLocation().getLongitude();
+	    double earthquakeLatitude = newEarthquakeNode.getEarthquake()
+		    .getLocation().getLatitude();
+
+	    // change printout pattern for just this earthquake
+	    this.df.applyPattern("#.00");
+	    System.out.println("Earthquake inserted at "
+		    + this.df.format(earthquakeLongitude) + " "
+		    + this.df.format(earthquakeLatitude));
+	    this.df.applyPattern("#.0");
+
+	    System.out.println(newEarthquakeNode.getEarthquake()
+		    .getLocationDescription()
+		    + " is close to the following"
+		    + " watchers:");
 
 	    // TODO: test for correct output to console
-	    this.binTree.regionSearch(newEarthquakes.get(i));
+	    System.out
+		    .println(this.binTree.regionSearch(newEarthquakes.get(i)));
 	}
     }
 

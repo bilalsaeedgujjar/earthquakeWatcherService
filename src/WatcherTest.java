@@ -20,14 +20,14 @@ public class WatcherTest extends junit.framework.TestCase {
      * Assert longitude was set correctly.
      */
     public void test_getLongitude() {
-	assertEquals(10, this.watcher.getLongitude());
+	assertEquals(10.0, this.watcher.getLongitude(), 0.01);
     }
 
     /**
      * Assert latitude was set correctly
      */
     public void test_getLatitude() {
-	assertEquals(12, this.watcher.getLatitude());
+	assertEquals(12.0, this.watcher.getLatitude(), 0.01);
     }
 
     /**

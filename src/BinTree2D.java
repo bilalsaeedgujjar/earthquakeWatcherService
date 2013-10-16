@@ -483,10 +483,10 @@ public class BinTree2D<K extends Point, E> {
 
 		    return 1
 			    + this.regionSearchHelp(
-				    ((BinTreeInternalNode<E>) node).getLeftChild(),
-				    leftWorld, earthquakeBoundingBox,
-				    earthquakePoint, earthquakeDistance,
-				    !isSplittingXAxis)
+				    ((BinTreeInternalNode<E>) node)
+					    .getLeftChild(), leftWorld,
+				    earthquakeBoundingBox, earthquakePoint,
+				    earthquakeDistance, !isSplittingXAxis)
 			    + this.regionSearchHelp(
 				    ((BinTreeInternalNode<E>) node)
 					    .getRightChild(), rightWorld,
@@ -514,10 +514,10 @@ public class BinTree2D<K extends Point, E> {
 
 		    return 1
 			    + this.regionSearchHelp(
-				    ((BinTreeInternalNode<E>) node).getLeftChild(),
-				    leftWorld, earthquakeBoundingBox,
-				    earthquakePoint, earthquakeDistance,
-				    !isSplittingXAxis)
+				    ((BinTreeInternalNode<E>) node)
+					    .getLeftChild(), leftWorld,
+				    earthquakeBoundingBox, earthquakePoint,
+				    earthquakeDistance, !isSplittingXAxis)
 			    + this.regionSearchHelp(
 				    ((BinTreeInternalNode<E>) node)
 					    .getRightChild(), rightWorld,

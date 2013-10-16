@@ -156,8 +156,8 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	StringBuilder stringBuilder = new StringBuilder();
 	if (rootNode != null) {
 
-	    stringBuilder
-		    .append(this.inorderTraversal(rootNode.getLeftChild(), ++nodeDepth));
+	    stringBuilder.append(this.inorderTraversal(rootNode.getLeftChild(),
+		    ++nodeDepth));
 
 	    // print (depth of current node - 1) * 2 "dots" to represent
 	    // how deep the current node is
@@ -169,8 +169,8 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 
 	    stringBuilder.append(rootNode.getValue().toString() + "\n");
 
-	    stringBuilder
-		    .append(this.inorderTraversal(rootNode.getRightChild(), ++nodeDepth));
+	    stringBuilder.append(this.inorderTraversal(
+		    rootNode.getRightChild(), ++nodeDepth));
 	    return stringBuilder.toString();
 	} else {
 	    return "";
