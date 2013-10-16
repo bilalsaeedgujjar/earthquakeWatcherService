@@ -53,7 +53,7 @@ public class EarthquakeWatcherServiceTest extends student.TestCase {
 	commands.add("debug");
 
 	this.EWS.processCommands(commands);
-	assertEquals("E" + "\nRiley -105.7 -24.3 is added to the BST"
+	assertFuzzyEquals("E" + "\nRiley -105.7 -24.3 is added to the BST"
 		+ "\nRiley -105.7 -24.3 is added to the bintree"
 		+ "\nTaylor 21.2 -38.6 is added to the BST"
 		+ "\nTaylor 21.2 -38.6 is added to the bintree"

@@ -18,9 +18,14 @@ public class BinarySearchTreeNode<Key, Element> implements
      * Create a new BinarySearchTreeNode object.
      *
      * @param key
+     *            The type of key to use for comparing this node with other
+     *            nodes.
      * @param value
+     *            The type of the value to be stored in this node.
      * @param leftChild
+     *            A reference to this node's left node.
      * @param rightChild
+     *            A reference to this node's right node.
      */
     public BinarySearchTreeNode(Key key, Element value,
 	    BinarySearchTreeNode<Key, Element> leftChild,
@@ -39,7 +44,8 @@ public class BinarySearchTreeNode<Key, Element> implements
     }
 
     /**
-     * @param key The new key for this node.
+     * @param key
+     *            The new key for this node.
      */
     public void setKey(Key key) {
 	this.key = key;
@@ -61,7 +67,8 @@ public class BinarySearchTreeNode<Key, Element> implements
     }
 
     /**
-     * @param leftChild The new left child for this node.
+     * @param leftChild
+     *            The new left child for this node.
      */
     public void setLeftChild(BinarySearchTreeNode<Key, Element> leftChild) {
 	this.leftChild = leftChild;
@@ -73,7 +80,8 @@ public class BinarySearchTreeNode<Key, Element> implements
     }
 
     /**
-     * @param rightChild The new right child for this node.
+     * @param rightChild
+     *            The new right child for this node.
      */
     public void setRightChild(BinarySearchTreeNode<Key, Element> rightChild) {
 	this.rightChild = rightChild;
