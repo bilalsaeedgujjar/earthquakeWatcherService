@@ -1,12 +1,8 @@
 import java.text.DecimalFormat;
-
 import realtimeweb.earthquakeservice.domain.Report;
 import java.util.List;
-import realtimeweb.earthquakeservice.domain.Coordinate;
 import realtimeweb.earthquakeservice.domain.Earthquake;
 import java.util.ArrayList;
-import realtimeweb.earthquakeservice.regular.EarthquakeService;
-import realtimeweb.earthquakewatchers.WatcherService;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
@@ -83,7 +79,7 @@ public class EarthquakeWatcherService {
 	maxHeapOfRecentEarthquakes = new EQMaxHeap<EarthquakeNodeAwareOfHeapIndex>(
 		heap, heapCapacity, 0);
 
-	this.checkForOptionalDegbugAndLiveArguments();
+	this.checkForOptionalLiveArguments();
     }
 
     /**
@@ -92,20 +88,13 @@ public class EarthquakeWatcherService {
      * @param commandLineArguments
      *            The commands to be checked.
      */
-    private void checkForOptionalDegbugAndLiveArguments() {
-	// check for the following 4 different possible valid commands
+    private void checkForOptionalLiveArguments() {
+	// check for the following 2 different possible valid commands
 	// args = { watcher.txt, normal.earthquakes } OR
-	// args = { debug, normal.earthquakes } OR
 	// args = { watcher.txt, live } OR
-	// args = { debug, live }
 	if (this.commandLineArguments.length == 2
-		&& this.commandLineArguments[0].equals("debug")) {
-	    this.debugCommandGiven = true;
-	} else if (this.commandLineArguments.length == 2
 		&& this.commandLineArguments[1].equals("live")) {
 	    this.liveCommandGiven = true;
-	} else {
-	    // optional arguments debug and live where not given
 	}
     }
 
@@ -185,6 +174,11 @@ public class EarthquakeWatcherService {
 		this.processWatcherDeleteRequest(watcherName);
 	    } else if (command.contains("query")) {
 		this.printLargestRecentEarthquake();
+	    } else if (command.contains("debug")) {
+		System.out.println(this.BST.inorderTraversal(this.BST
+			.getRootNode(), 0));
+		System.out.println(this.binTree.preorderTraversal(this.binTree
+			.getRootNode()));
 	    }
 	}
     }
@@ -280,7 +274,7 @@ public class EarthquakeWatcherService {
 	    double originalLongitude = watcher.getLongitude() - 180.0;
 	    double originalLatitude = watcher.getLatitude() - 90.0;
 	    System.out
-		    .println(watcher.getName()
+		    .println(watcher.getName() + " "
 			    + this.df.format(originalLongitude) + " "
 			    + this.df.format(originalLatitude)
 			    + " is added to the BST");
@@ -299,7 +293,7 @@ public class EarthquakeWatcherService {
 
 	    double originalLongitude = watcher.getLongitude() - 180.0;
 	    double originalLatitude = watcher.getLatitude() - 90.0;
-	    System.out.println(watcher.getName()
+	    System.out.println(watcher.getName() + " "
 		    + this.df.format(originalLongitude) + " "
 		    + this.df.format(originalLatitude)
 		    + " is added to the bintree");
@@ -458,8 +452,8 @@ public class EarthquakeWatcherService {
 			    .getLocationDescription()
 		    + " is inserted into the Heap");
 
-	    // TODO: call this.bintree.regionSearch(newEarthquakes.get(i));
-	    this.updateRelevantWatchersOfNewEarthquake(newEarthquakes.get(i));
+	    // TODO: test for correct output to console
+	    this.binTree.regionSearch(newEarthquakes.get(i));
 	}
     }
 

@@ -32,7 +32,7 @@ import realtimeweb.earthquakewatchers.WatcherService;
  * the calles to EarthquakeService and WatcherService.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 8, 2013
+ * @version Oct 15, 2013
  */
 public class EqSpatial {
     private static EarthquakeService earthquakeService;
