@@ -198,7 +198,7 @@ public class EarthquakeWatcherService {
 	String watcherName = "";
 	if (command.contains("query")) {
 	    throw new IllegalArgumentException(
-		    "In method getWatcherName of class EqSimpleEarthquakeWatcherService"
+		    "In method getWatcherName of class EarthquakeWatcherService"
 			    + " you cannot call this method on a "
 			    + "query command");
 	} else if (splitCommand.length == 2) {
@@ -227,7 +227,7 @@ public class EarthquakeWatcherService {
 	} else {
 	    throw new IllegalArgumentException(
 		    "In method getLongitude of class EarthquakeWatcherService"
-			    + "the command in the parameter does not have a "
+			    + " the command in the parameter does not have a "
 			    + "longitude");
 	}
 	return longitude;
@@ -251,7 +251,7 @@ public class EarthquakeWatcherService {
 	} else {
 	    throw new IllegalArgumentException(
 		    "In method getLatitude of class EarthquakeWatcherService"
-			    + "the command in the parameter does not have a "
+			    + " the command in the parameter does not have a "
 			    + "latitude");
 	}
 	return latitude;
@@ -275,8 +275,8 @@ public class EarthquakeWatcherService {
 	    double originalLatitude = watcher.getLatitude() - 90.0;
 	    System.out
 		    .println(watcher.getName() + " "
-			    + this.df.format(originalLongitude) + " "
-			    + this.df.format(originalLatitude)
+			    + originalLongitude + " "
+			    + originalLatitude
 			    + " is added to the BST");
 	} else {
 	    // watcher already exists within BST and bintree

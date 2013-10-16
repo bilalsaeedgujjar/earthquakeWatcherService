@@ -164,6 +164,7 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	    for (int i = 0; i < (nodeDepth - 1); i++) {
 		stringBuilder.append("..");
 	    }
+	    // TODO: make cleaner
 	    nodeDepth = nodeDepth - 1;
 
 	    stringBuilder.append(rootNode.getValue().toString() + "\n");
