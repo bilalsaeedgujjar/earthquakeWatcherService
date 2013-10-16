@@ -44,4 +44,8 @@ public class WatcherTest extends junit.framework.TestCase {
 	assertFalse(this.watcher.equals(differentLocatedWatcher));
 	assertFalse(this.watcher.equals(null));
     }
+
+    public void test_toString() {
+	assertEquals("Quinn -170.0 -78.0", this.watcher.toString());
+    }
 }

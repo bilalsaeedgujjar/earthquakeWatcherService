@@ -435,7 +435,7 @@ public class BinTree2D<K extends Point, E> {
 			earthquakeLongitude, earthquakeLatitude), radius, true);
 
 	return "Watcher search caused " + numberOfBinTreeNodesVisited
-		+ " bintree nodes to be visited";
+		+ " bintree nodes to be visited.";
     }
 
     /**
@@ -551,11 +551,7 @@ public class BinTree2D<K extends Point, E> {
 
 		if (leftSideOfEquation <= distanceSquared) {
 		    System.out.println(((BinTreeLeafNode<?, E>) node)
-			    .getElement().toString()
-			    + " "
-			    + ((BinTreeLeafNode<?, E>) node).getKey().getX()
-			    + " "
-			    + ((BinTreeLeafNode<?, E>) node).getKey().getY());
+			    .getElement().toString());
 		} else {
 		    // don't print out information about watcher since
 		    // he/she is not close enough to the earthquake
@@ -629,11 +625,7 @@ public class BinTree2D<K extends Point, E> {
 			    .getRightChild()));
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
 	    stringBuilder.append((((BinTreeLeafNode<K, E>) node).getElement())
-		    .toString()
-		    + " "
-		    + ((BinTreeLeafNode<K, E>) node).getKey().getX()
-		    + " "
-		    + ((BinTreeLeafNode<K, E>) node).getKey().getY() + "\n");
+		    .toString() + "\n");
 	}
 	return stringBuilder.toString();
     }

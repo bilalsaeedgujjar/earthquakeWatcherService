@@ -79,7 +79,6 @@ public class Watcher implements HasName {
 	return true;
     }
 
-    // TODO: test
     @Override
     public String toString() {
 	double longitude = this.longitude - 180.0;

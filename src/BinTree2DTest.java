@@ -124,23 +124,23 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	// First EQ coordinate test: (55, 80) Magnitude = 1
 	// EQBox should be 53, 80
 	this.binTree.regionSearch(earthquake1);
-	assertEquals("Watcher search caused 1 bintree nodes to be visited",
+	assertEquals("Watcher search caused 1 bintree nodes to be visited.",
 		this.binTree.regionSearch(earthquake1));
 
 	this.binTree.insert(new Point(10.0, 45.0), "A");
-	assertEquals("Watcher search caused 1 bintree nodes to be visited",
+	assertEquals("Watcher search caused 1 bintree nodes to be visited.",
 		this.binTree.regionSearch(earthquake1));
 
 	this.binTree.insert(new Point(30.0, 70.0), "B");
-	assertEquals("Watcher search caused 5 bintree nodes to be visited",
+	assertEquals("Watcher search caused 5 bintree nodes to be visited.",
 		this.binTree.regionSearch(earthquake1));
 
 	this.binTree.insert(new Point(52.0, 65.0), "C");
-	assertEquals("Watcher search caused 5 bintree nodes to be visited",
+	assertEquals("Watcher search caused 5 bintree nodes to be visited.",
 		this.binTree.regionSearch(earthquake1));
 
 	this.binTree.insert(new Point(55.0, 90.0), "D");
-	assertEquals("Watcher search caused 11 bintree nodes to be visited",
+	assertEquals("Watcher search caused 11 bintree nodes to be visited.",
 		this.binTree.regionSearch(earthquake1));
     }
 
