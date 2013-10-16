@@ -163,8 +163,8 @@ public class EarthquakeWatcherService {
 
 		// convert to the bintree's coordinate system by
 		// adding 180 to longitude and adding 90 to the latitude
-		double convertedLongitude = longitude + 180;
-		double convertedLatitude = latitude + 90;
+		double convertedLongitude = longitude + 180.0;
+		double convertedLatitude = latitude + 90.0;
 
 		Watcher newWatcher = new Watcher(watcherName,
 			convertedLongitude, convertedLatitude);
@@ -175,8 +175,8 @@ public class EarthquakeWatcherService {
 	    } else if (command.contains("query")) {
 		this.printLargestRecentEarthquake();
 	    } else if (command.contains("debug")) {
-		System.out.println(this.BST.inorderTraversal(this.BST
-			.getRootNode(), 0));
+		System.out.println(this.BST.inorderTraversal(
+			this.BST.getRootNode(), 0));
 		System.out.println(this.binTree.preorderTraversal(this.binTree
 			.getRootNode()));
 	    }
@@ -217,13 +217,13 @@ public class EarthquakeWatcherService {
      *            The command with the longitude information.
      * @return The longitude of the command.
      */
-    public int getLongitude(String command) {
+    public double getLongitude(String command) {
 	// if the command has 4 elements longitude will always be the 2nd
 	// element
-	int longitude = 0;
+	double longitude = 0;
 	String[] splitCommand = command.split("\t|[ ]+");
 	if (splitCommand.length == 4) {
-	    longitude = Integer.parseInt(splitCommand[1]);
+	    longitude = Double.parseDouble(splitCommand[1]);
 	} else {
 	    throw new IllegalArgumentException(
 		    "In method getLongitude of class EarthquakeWatcherService"
@@ -242,12 +242,12 @@ public class EarthquakeWatcherService {
      * @return The latitude of the command.
      *
      */
-    public int getLatitude(String command) {
+    public double getLatitude(String command) {
 	// if the command has 4 elements latitude will always be the 3rd element
-	int latitude = 0;
+	double latitude = 0;
 	String[] splitCommand = command.split("\t|[ ]+");
 	if (splitCommand.length == 4) {
-	    latitude = Integer.parseInt(splitCommand[2]);
+	    latitude = Double.parseDouble(splitCommand[2]);
 	} else {
 	    throw new IllegalArgumentException(
 		    "In method getLatitude of class EarthquakeWatcherService"
@@ -258,36 +258,45 @@ public class EarthquakeWatcherService {
     }
 
     /**
-     * Print to console message of adding a watcher to the linked list.
+     * Print to console message of adding a watcher to the
      *
      * @param watcher
      *            Watcher to be added.
      *
      */
-    public void processWatcherAddRequest(Watcher watcher) {
+    public boolean processWatcherAddRequest(Watcher watcher) {
 	// adding a watcher can be successful or unsuccessful
-	// --------------------------BST------------------------------
+	if (this.addedWatcherToBST(watcher)) {
+	    return this.addedWatcherToBinTree(watcher);
+	} else { // watcher name is a duplicate in the BST so don't add it
+		 // to the bin tree
+	    return false;
+	}
+    }
+
+    boolean addedWatcherToBST(Watcher watcher) {
 	if (this.BST.find(watcher.getName()) == null) {
 	    // when the watcher's name is not duplicated in the BST
 	    this.BST.insert(watcher.getName(), watcher);
 
+	    // convert back to the coordinates given through the earthquake API
 	    double originalLongitude = watcher.getLongitude() - 180.0;
 	    double originalLatitude = watcher.getLatitude() - 90.0;
-	    System.out
-		    .println(watcher.getName() + " "
-			    + originalLongitude + " "
-			    + originalLatitude
-			    + " is added to the BST");
+	    System.out.println(watcher.getName() + " " + originalLongitude
+		    + " " + originalLatitude + " is added to the BST");
+	    return true;
 	} else {
 	    // watcher already exists within BST and bintree
 	    System.out.println(watcher.getName()
 		    + " duplicates a watcher already in the BST");
+	    return false;
 	}
+    }
 
-	// --------------------------BinTree--------------------------
+    boolean addedWatcherToBinTree(Watcher watcher) {
 	Point watcherLocation = new Point(watcher.getLongitude(),
 		watcher.getLatitude());
-	if (this.binTree.find(watcherLocation, watcher) == null) {
+	if (this.binTree.findKey(watcherLocation) == false) {
 	    // watcherLocation is not duplicated in the bin tree
 	    this.binTree.insert(watcherLocation, watcher);
 
@@ -297,6 +306,7 @@ public class EarthquakeWatcherService {
 		    + this.df.format(originalLongitude) + " "
 		    + this.df.format(originalLatitude)
 		    + " is added to the bintree");
+	    return true;
 	} else { // watcherLocation is already in the bin tree
 	    double originalLongitude = watcher.getLongitude() - 180.0;
 	    double originalLatitude = watcher.getLatitude() - 90.0;
@@ -309,11 +319,12 @@ public class EarthquakeWatcherService {
 	    // bintree
 	    this.BST.remove(watcher.getName());
 	    System.out.println(watcher.getName() + " is removed from the BST");
+	    return false;
 	}
     }
 
     public boolean processWatcherDeleteRequest(String watcherName) {
-	if (this.BST.remove(watcherName) == null) {
+	if (this.BST.find(watcherName) == null) {
 	    // watcher does not exist within BST or bintree
 	    System.out.println(watcherName + " does not appear in the BST");
 	    return false;
@@ -465,5 +476,13 @@ public class EarthquakeWatcherService {
 	    EarthquakeNodeAwareOfHeapIndex newEarthquakeNode) {
 	linkedQueueOfRecentEarthquakes.enqueue(newEarthquakeNode);
 	maxHeapOfRecentEarthquakes.insert(newEarthquakeNode);
+    }
+
+    public EQMaxHeap<EarthquakeNodeAwareOfHeapIndex> getMaxHeapOfRecentEarthquakes() {
+	return this.maxHeapOfRecentEarthquakes;
+    }
+
+    public long getUnixTimeOfEarliestQuake() {
+	return this.unixTimeOfEarliestQuake;
     }
 }

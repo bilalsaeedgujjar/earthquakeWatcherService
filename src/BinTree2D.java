@@ -350,6 +350,65 @@ public class BinTree2D<K extends Point, E> {
 	return null;
     }
 
+    // TODO: test
+    public boolean findKey(K key) {
+	BoundingBox world = new BoundingBox(new Point(this.minimumXAxis,
+		this.minimumYAxis), this.maximumXAxis - this.minimumXAxis,
+		this.maximumYAxis - this.minimumYAxis);
+
+	return this.findKeyHelp(this.rootNode, world, key, true);
+    }
+
+    // TODO: test
+    boolean findKeyHelp(BinTreeNode<E> node, BoundingBox currentWorld, K key,
+	    boolean isSplittingXAxis) {
+	if (node instanceof BinTreeEmptyNode<?>) {
+	    return false;
+	} else if (node instanceof BinTreeInternalNode<?>) {
+	    if (isSplittingXAxis) {
+		isSplittingXAxis = false; // so y-axis can be split next time
+		if (key.getX() < currentWorld
+			.getCurrentMidpointOfBoxAlongXAxis()) {
+		    // current node should go to left subtree
+		    currentWorld.changeToLeftHalfBoundingBox();
+
+		    return this.findKeyHelp(
+			    ((BinTreeInternalNode<E>) node).getLeftChild(),
+			    currentWorld, key, isSplittingXAxis);
+		} else { // current node should go to right subtree
+		    currentWorld.changeToRightHalfBoundingBox();
+
+		    return this.findKeyHelp(
+			    ((BinTreeInternalNode<E>) node).getRightChild(),
+			    currentWorld, key, isSplittingXAxis);
+		}
+	    } else { // splitting y-axis
+		isSplittingXAxis = true; // so x-axis can be split next time
+		if (key.getY() < currentWorld
+			.getCurrentMidpointOfBoxAlongYAxis()) {
+		    currentWorld.changeToBottomHalfBoundingBox();
+
+		    return this.findKeyHelp(
+			    ((BinTreeInternalNode<E>) node).getLeftChild(),
+			    currentWorld, key, isSplittingXAxis);
+		} else {
+		    currentWorld.changeToTopHalfBoundingBox();
+
+		    return this.findKeyHelp(
+			    ((BinTreeInternalNode<E>) node).getRightChild(),
+			    currentWorld, key, isSplittingXAxis);
+		}
+	    }
+	} else if (node instanceof BinTreeLeafNode<?, ?>) {
+	    if (key.equals(((BinTreeLeafNode<?, E>) node).getKey())) {
+		return true;
+	    } else {
+		return false;
+	    }
+	}
+	return false;
+    }
+
     // TODO: remove earthquake and just pass in 3 parameters
     public String regionSearch(Earthquake earthquake) {
 	// TODO: make sure the adjust coordinates in method call
