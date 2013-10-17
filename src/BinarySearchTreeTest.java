@@ -1,5 +1,3 @@
-
-
 /**
  * This class tests all logic within class BinarySearchTree.
  *
@@ -22,15 +20,24 @@ public class BinarySearchTreeTest extends junit.framework.TestCase {
 	this.BST.insert(new Integer(0), "zero");
     }
 
+    /**
+     * Assert clear sets size of binary search tree correctly.
+     */
     public void test_clear() {
 	this.BST.clear();
 	assertEquals(0, this.BST.size());
     }
 
+    /**
+     * Assert insert correctly updates the size of the binary search tree.
+     */
     public void test_insert() {
 	assertEquals(8, this.BST.size());
     }
 
+    /**
+     * Assert clear sets size of binary search tree correctly.
+     */
     public void test_remove() {
 	assertEquals("zero", this.BST.remove(new Integer(0)));
 	assertEquals("one", this.BST.remove(new Integer(1)));
@@ -42,6 +49,9 @@ public class BinarySearchTreeTest extends junit.framework.TestCase {
 	assertEquals("seven", this.BST.remove(new Integer(7)));
     }
 
+    /**
+     * Assert the root node is removed correctly.
+     */
     public void test_removeRandomElement() {
 	assertEquals("four", this.BST.removeRandomElement());
 	assertEquals("three", this.BST.removeRandomElement());
@@ -53,6 +63,9 @@ public class BinarySearchTreeTest extends junit.framework.TestCase {
 	assertEquals("seven", this.BST.removeRandomElement());
     }
 
+    /**
+     * Assert find correclty returns the found value.
+     */
     public void test_find() {
 	assertEquals("zero", this.BST.find(new Integer(0)));
 	assertEquals("one", this.BST.find(new Integer(1)));
@@ -64,38 +77,55 @@ public class BinarySearchTreeTest extends junit.framework.TestCase {
 	assertEquals("seven", this.BST.find(new Integer(7)));
     }
 
+    /**
+     * Assert findHelp() return the correct value for null parameters.
+     */
     public void test_findHelp() {
 	assertNull(this.BST.findHelp(null, null));
     }
 
+    /**
+     * Assert insertHelp() correctly inserts String elements with Integer keys.
+     */
     public void test_insertHelp() {
-	BinarySearchTreeNode<Integer, String> bst = new BinarySearchTreeNode<Integer, String>(
-		new Integer(0), "zero", null, null);
 	assertEquals(10, this.BST.insertHelp(null, new Integer(10), "ten")
 		.getKey().intValue());
     }
 
+    /**
+     * Assert removeHelp() return the correct value for null parameters.
+     */
     public void test_removeHelp() {
 	assertNull(this.BST.removeHelp(null, new Integer(0)));
     }
 
+    /**
+     * Assert the maximum value can be correctly retrieved.
+     */
     public void test_getNodeWithMaximumValue() {
 	assertEquals("seven",
 		this.BST.getNodeWithMaximumValue(this.BST.getRootNode())
 			.getValue().toString());
     }
 
+    /**
+     * Assert the maximum value can be correctly removed and the correct binary
+     * search tree structure is preserved.
+     */
     public void test_deleteNodeWithMaximumValue() {
 	assertEquals("seven", this.BST.getRootNode().getRightChild()
 		.getRightChild().getValue().toString());
 	this.BST.deleteNodeWithMaximumValue(this.BST.getRootNode());
-	assertNull(this.BST.getRootNode().getRightChild()
-		.getRightChild());
+	assertNull(this.BST.getRootNode().getRightChild().getRightChild());
     }
 
+    /**
+     * Asserts inorder traversal produces the correclty formatted string.
+     */
     public void test_inorderTraversal() {
-	assertEquals("......zero\n....one\n......two\n..three\nfour\n" +
-			"....five\n..six\n....seven", this.BST
-		.inorderTraversal(this.BST.getRootNode(), 0).toString().trim());
+	assertEquals("......zero\n....one\n......two\n..three\nfour\n"
+		+ "....five\n..six\n....seven",
+		this.BST.inorderTraversal(this.BST.getRootNode(), 0).toString()
+			.trim());
     }
 }
