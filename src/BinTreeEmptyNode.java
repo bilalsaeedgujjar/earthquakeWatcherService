@@ -1,5 +1,3 @@
-
-
 /**
  * The class is the singleton design pattern of empty bin tree node using the
  * eager initialization strategy.
@@ -10,7 +8,7 @@
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 12, 2013
- * @param <E>
+ * @param <E> The type of element to store in this node.
  */
 public class BinTreeEmptyNode<E> extends BinTreeNode<E> {
     @SuppressWarnings("rawtypes")

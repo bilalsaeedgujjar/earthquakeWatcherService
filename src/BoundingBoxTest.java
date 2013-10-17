@@ -38,10 +38,12 @@ public class BoundingBoxTest extends junit.framework.TestCase {
 	assertEquals(12.5, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
 
 	this.boundingBox.changeToRightHalfBoundingBox();
-	assertEquals(18.75, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
+	assertEquals(18.75,
+		this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
 
 	this.boundingBox.changeToRightHalfBoundingBox();
-	assertEquals(21.875, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
+	assertEquals(21.875,
+		this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
     }
 
     /**
@@ -57,10 +59,12 @@ public class BoundingBoxTest extends junit.framework.TestCase {
 	assertEquals(12.5, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 
 	this.boundingBox.changeToTopHalfBoundingBox();
-	assertEquals(18.75, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
+	assertEquals(18.75,
+		this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 
 	this.boundingBox.changeToTopHalfBoundingBox();
-	assertEquals(21.875, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
+	assertEquals(21.875,
+		this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
     }
 
     /**
@@ -88,6 +92,10 @@ public class BoundingBoxTest extends junit.framework.TestCase {
 	assertEquals(62.5, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
     }
 
+    /**
+     * Assert that overlap can be correclty detected between any 2 bounding
+     * boxes.
+     */
     public void test_isOverlapping() {
 	// box1 will contain all other boxes
 	BoundingBox box1 = new BoundingBox(new Point(0.0, 0.0), 100.0, 100.0);
@@ -104,8 +112,7 @@ public class BoundingBoxTest extends junit.framework.TestCase {
 	// to create an overlap
 	BoundingBox nonoverlappingTopRightBox2 = new BoundingBox(new Point(
 		99.0, 101.0), 100.0, 100.0);
-	assertFalse(BoundingBox
-		.isOverlapping(box1, nonoverlappingTopRightBox2));
+	assertFalse(BoundingBox.isOverlapping(box1, nonoverlappingTopRightBox2));
 
 	BoundingBox overlappingTopRightBox = new BoundingBox(new Point(99.0,
 		99.0), 100.0, 100.0);

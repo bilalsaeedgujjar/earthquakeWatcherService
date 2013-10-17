@@ -99,6 +99,11 @@ public class BoundingBox {
 	return this.height;
     }
 
+    /**
+     * @param box1
+     * @param box2
+     * @return true if box1 overlaps box2; otherwise return false.
+     */
     public static boolean isOverlapping(BoundingBox box1, BoundingBox box2) {
 	boolean isOverlapping = false;
 
@@ -113,7 +118,6 @@ public class BoundingBox {
 	double bNEy = box2.getBottomLeftPoint().getY() + box2.getHeight();
 	double bSWx = box2.getBottomLeftPoint().getX();
 	double bSWy = box2.getBottomLeftPoint().getY();
-	double aHeight = box2.getHeight();
 
 	if (aSWx <= bNEx && aNEx >= bSWx && aNEy >= bSWy && aSWy <= bNEy) {
 	    isOverlapping = true;

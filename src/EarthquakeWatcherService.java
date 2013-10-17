@@ -49,9 +49,6 @@ public class EarthquakeWatcherService {
      */
     private long currentReportTime = -1;
 
-    private boolean debugCommandGiven = false;
-    private boolean liveCommandGiven = false;
-
     private String[] commandLineArguments;
     private DecimalFormat df = new DecimalFormat("#.0");
 
@@ -59,6 +56,9 @@ public class EarthquakeWatcherService {
      * Construct a bin tree and binary search tree to store watchers. Construct
      * a linkedQueue to store earthquakes in order of time. Construct a max-heap
      * of earthquakes to efficiently query the largest recent earthquake.
+     *
+     * @param commandLineArguments
+     *            The commands given from the command line.
      */
     public EarthquakeWatcherService(String[] commandLineArguments) {
 	this.commandLineArguments = commandLineArguments;
@@ -78,24 +78,6 @@ public class EarthquakeWatcherService {
 	// magnitude
 	maxHeapOfRecentEarthquakes = new EQMaxHeap<EarthquakeNodeAwareOfHeapIndex>(
 		heap, heapCapacity, 0);
-
-	this.checkForOptionalLiveArguments();
-    }
-
-    /**
-     * Check if the optional command line argument "--all" are given.
-     *
-     * @param commandLineArguments
-     *            The commands to be checked.
-     */
-    private void checkForOptionalLiveArguments() {
-	// check for the following 2 different possible valid commands
-	// args = { watcher.txt, normal.earthquakes } OR
-	// args = { watcher.txt, live } OR
-	if (this.commandLineArguments.length == 2
-		&& this.commandLineArguments[1].equals("live")) {
-	    this.liveCommandGiven = true;
-	}
     }
 
     /**
@@ -128,7 +110,7 @@ public class EarthquakeWatcherService {
 	if (this.commandLineArguments.length == 2
 		&& this.commandLineArguments[0].equals("debug")) {
 	    throw new IllegalArgumentException(
-		    "In method getEarthquakeFileName of class EarthquakeWatcherService"
+		    "In method getWatcherFileName of class EarthquakeWatcherService"
 			    + "the commands state there is no earthquake file "
 			    + "and that the program should instead be run live");
 	} else if (this.commandLineArguments.length == 2) {
@@ -265,6 +247,7 @@ public class EarthquakeWatcherService {
      *
      * @param watcher
      *            Watcher to be added.
+     * @return true if watcher is successfully added; otherwise return false.
      *
      */
     public boolean processWatcherAddRequest(Watcher watcher) {
@@ -277,16 +260,17 @@ public class EarthquakeWatcherService {
 	}
     }
 
+    /**
+     * @param watcher
+     *            Watcher to be added.
+     * @return true if watcher is successfully added; otherwise return false.
+     */
     boolean addedWatcherToBST(Watcher watcher) {
 	if (this.BST.find(watcher.getName()) == null) {
 	    // when the watcher's name is not duplicated in the BST
 	    this.BST.insert(watcher.getName(), watcher);
 
-	    // convert back to the coordinates given through the earthquake API
-	    double originalLongitude = watcher.getLongitude() - 180.0;
-	    double originalLatitude = watcher.getLatitude() - 90.0;
-	    System.out
-		    .println(watcher.toString() + " is added to the BST");
+	    System.out.println(watcher.toString() + " is added to the BST");
 	    return true;
 	} else {
 	    // watcher already exists within BST and bintree
@@ -296,10 +280,15 @@ public class EarthquakeWatcherService {
 	}
     }
 
+    /**
+     * @param watcher
+     *            Watcher to be added.
+     * @return true if watcher is successfully added; otherwise return false.
+     */
     boolean addedWatcherToBinTree(Watcher watcher) {
 	Point watcherLocation = new Point(watcher.getLongitude(),
 		watcher.getLatitude());
-	if (this.binTree.findKey(watcherLocation) == false) {
+	if (!this.binTree.findKey(watcherLocation)) {
 	    // watcherLocation is not duplicated in the bin tree
 	    this.binTree.insert(watcherLocation, watcher);
 
@@ -326,6 +315,11 @@ public class EarthquakeWatcherService {
 	}
     }
 
+    /**
+     * @param watcherName
+     *            Name of Watcher to be removed.
+     * @return true if Watcher is successfully removed; otherwise return false.
+     */
     public boolean processWatcherDeleteRequest(String watcherName) {
 	if (this.BST.find(watcherName) == null) {
 	    // watcher does not exist within BST or bintree
@@ -439,9 +433,13 @@ public class EarthquakeWatcherService {
 	}
     }
 
+    /**
+     * @param latestQuakesReport
+     *            Report to be processed.
+     */
     public void processLatestEarthquakesReport(Report latestQuakesReport) {
-	long currentReportTime = latestQuakesReport.getGeneratedTime();
-	this.setCurrentReportTime(currentReportTime);
+	long currentReportTime1 = latestQuakesReport.getGeneratedTime();
+	this.setCurrentReportTime(currentReportTime1);
 
 	this.removeExpiredEarthquakesInQueueAndMaxHeap();
 
@@ -466,37 +464,48 @@ public class EarthquakeWatcherService {
 	    double earthquakeLatitude = newEarthquakeNode.getEarthquake()
 		    .getLocation().getLatitude();
 
-	    // change printout pattern for just this earthquake
-	    System.out.println("Earthquake inserted at "
-		    + earthquakeLongitude + " "
-		    + earthquakeLatitude);
-	    this.df.applyPattern("#.0");
+	    System.out.println("Earthquake inserted at " + earthquakeLongitude
+		    + " " + earthquakeLatitude);
 
 	    System.out.println(newEarthquakeNode.getEarthquake()
 		    .getLocationDescription()
 		    + " is close to the following"
 		    + " watchers:");
 
-	    // TODO: test for correct output to console
 	    System.out
 		    .println(this.binTree.regionSearch(newEarthquakes.get(i)));
 	}
     }
 
+    /**
+     * @param currentReportTime
+     *            The new current time.
+     */
     public void setCurrentReportTime(long currentReportTime) {
 	this.currentReportTime = currentReportTime;
     }
 
+    /**
+     * @param newEarthquakeNode
+     *            new EarthquakeNode to be added.
+     */
     public void addNewEarthquakeToQueueAndMaxHeap(
 	    EarthquakeNodeAwareOfHeapIndex newEarthquakeNode) {
 	linkedQueueOfRecentEarthquakes.enqueue(newEarthquakeNode);
 	maxHeapOfRecentEarthquakes.insert(newEarthquakeNode);
     }
 
+    /**
+     * @return The max heap holding recent earthquakes.
+     */
     public EQMaxHeap<EarthquakeNodeAwareOfHeapIndex> getMaxHeapOfRecentEarthquakes() {
 	return this.maxHeapOfRecentEarthquakes;
     }
 
+    /**
+     * @return The unix time of the earliest earthquake in the queue and max
+     *         heap.
+     */
     public long getUnixTimeOfEarliestQuake() {
 	return this.unixTimeOfEarliestQuake;
     }

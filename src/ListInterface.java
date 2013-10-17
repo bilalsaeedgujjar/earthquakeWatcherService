@@ -5,7 +5,7 @@
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 15, 2013
  * @param <E>
- *            Can hold any object.
+ *            The type of element to be held by list.
  */
 public interface ListInterface<E> {
     /**

@@ -32,6 +32,32 @@ public class EarthquakeWatcherServiceTest extends student.TestCase {
      */
     public void test_getEarthquakeFileName() {
 	assertEquals("EQsmallP2.json", this.EWS.getEarthquakeFileName());
+
+	String[] args2 = { "Wsmall2.txt", "live" };
+	this.EWS = new EarthquakeWatcherService(args2);
+
+	try {
+	    this.EWS.getEarthquakeFileName();
+	    fail("should've thrown an exception!");
+	} catch (IllegalArgumentException expected) {
+	    assertEquals("In method getEarthquakeFileName of class "
+		    + "EarthquakeWatcherService"
+		    + "the commands state there is no earthquake file "
+		    + "and that the program should instead be run live",
+		    expected.getMessage());
+	}
+
+	String[] args3 = { "--all", "watcher.txt", "normal.earthquakes",
+		"extraCommand" };
+	this.EWS = new EarthquakeWatcherService(args3);
+	try {
+	    this.EWS.getEarthquakeFileName();
+	    fail("should've thrown an exception!");
+	} catch (IllegalArgumentException expected) {
+	    assertEquals("In method getEarthquakeFileName of class "
+		    + "EarthquakeWatcherService"
+		    + "the given commands are invalid", expected.getMessage());
+	}
     }
 
     /**
@@ -40,29 +66,58 @@ public class EarthquakeWatcherServiceTest extends student.TestCase {
      */
     public void test_getWatcherFileName() {
 	assertEquals("Wsmall2.txt", this.EWS.getWatcherFileName());
+
+	String[] args2 = { "debug", "live" };
+	this.EWS = new EarthquakeWatcherService(args2);
+	try {
+	    this.EWS.getWatcherFileName();
+	    fail("should've thrown an exception!");
+	} catch (IllegalArgumentException expected) {
+	    assertEquals(
+		    "In method getWatcherFileName of class EarthquakeWatcherService"
+			    + "the commands state there is no earthquake file "
+			    + "and that the program should instead be run live",
+		    expected.getMessage());
+	}
+
+	String[] args3 = { "--all", "watcher.txt", "normal.earthquakes",
+		"extraCommand" };
+	this.EWS = new EarthquakeWatcherService(args3);
+	try {
+	    this.EWS.getWatcherFileName();
+	    fail("should've thrown an exception!");
+	} catch (IllegalArgumentException expected) {
+	    assertEquals("In method getWatcherFileName of class "
+		    + "EarthquakeWatcherService"
+		    + "the given commands are invalid", expected.getMessage());
+	}
     }
 
     /**
-     * TODO: Test different add, query and delete commands.
+     * Test different add, query and delete commands.
      */
     public void test_processCommands() {
 	ArrayList<String> commands = new ArrayList<String>();
+	this.EWS.processCommands(commands);
+	assertEquals("", outContent.toString().trim());
+
 	commands.add("debug");
 	commands.add("add -105.7 -24.3 Riley");
 	commands.add("add 21.2 -38.6 Taylor");
 	commands.add("debug");
+	commands.add("delete  Taylor");
+	commands.add("query");
 
 	this.EWS.processCommands(commands);
 	assertFuzzyEquals("E" + "\nRiley -105.7 -24.3 is added to the BST"
 		+ "\nRiley -105.7 -24.3 is added to the bintree"
 		+ "\nTaylor 21.2 -38.6 is added to the BST"
 		+ "\nTaylor 21.2 -38.6 is added to the bintree"
-		+ "\nRiley -105.7 -24.3"
-		+ "\n..Taylor 21.2 -38.6"
-		+ "\nI"
-		+ "\nRiley -105.7 -24.3"
-		+ "\nTaylor 21.2 -38.6", outContent
-		.toString().trim());
+		+ "\nRiley -105.7 -24.3" + "\n..Taylor 21.2 -38.6" + "\nI"
+		+ "\nRiley -105.7 -24.3" + "\nTaylor 21.2 -38.6"
+		+ "\nTaylor 21.2 -38.6 is removed from the BST"
+		+ "\nTaylor 21.2 -38.6 is removed from the bintree"
+		+ "\nNo record on MaxHeap", outContent.toString().trim());
     }
 
     /**

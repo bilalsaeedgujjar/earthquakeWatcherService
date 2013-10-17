@@ -443,20 +443,23 @@ public class BinTree2D<K extends Point, E> {
 	return false;
     }
 
-    // TODO: remove earthquake and just pass in 3 parameters
+    /**
+     * @param earthquake
+     * @return A string describing how many nodes were visited during the
+     *         search.
+     */
     public String regionSearch(Earthquake earthquake) {
-	// TODO: make sure the adjust coordinates in method call
-	double earthquakeLongitude = earthquake.getLocation().getLongitude() + 180.0;
-	double earthquakeLatitude = earthquake.getLocation().getLatitude() + 90.0;
-	double earthquakeMagnitude = earthquake.getMagnitude();
+	double objectLongitude = earthquake.getLocation().getLongitude() + 180.0;
+	double objectLatitude = earthquake.getLocation().getLatitude() + 90.0;
+	double objectMagnitude = earthquake.getMagnitude();
 
-	double radius = Math.pow(earthquakeMagnitude, 3) * 2;
-	double earthquakeBoundingBoxBottomLeftX = earthquakeLongitude - radius;
-	double earthquakeBoundingBoxBottomLeftY = earthquakeLatitude - radius;
+	double radius = Math.pow(objectMagnitude, 3) * 2;
+	double earthquakeBoundingBoxBottomLeftX = objectLongitude - radius;
+	double earthquakeBoundingBoxBottomLeftY = objectLatitude - radius;
 
 	double width = radius * 2;
 	double height = radius * 2;
-	BoundingBox earthquakeBoundingBox = new BoundingBox(new Point(
+	BoundingBox objectBoundingBox = new BoundingBox(new Point(
 		earthquakeBoundingBoxBottomLeftX,
 		earthquakeBoundingBoxBottomLeftY), width, height);
 
@@ -465,8 +468,8 @@ public class BinTree2D<K extends Point, E> {
 		this.maximumYAxis - this.minimumYAxis);
 
 	int numberOfBinTreeNodesVisited = this.regionSearchHelp(this.rootNode,
-		currentWorld, earthquakeBoundingBox, new Point(
-			earthquakeLongitude, earthquakeLatitude), radius, true);
+		currentWorld, objectBoundingBox, new Point(objectLongitude,
+			objectLatitude), radius, true);
 	return "Watcher search caused " + numberOfBinTreeNodesVisited
 		+ " bintree nodes to be visited.";
     }
@@ -475,7 +478,6 @@ public class BinTree2D<K extends Point, E> {
      * Assume we want to print out a list of all records that are within a
      * certain distance d of a given point P.
      *
-     *
      * Search proceeds by means of a directed traversal. When we visit a node of
      * the tree, we only proceed if the bounding box for the search circle
      * intersects the bounding box for the node if it does not, we stop and
@@ -483,7 +485,7 @@ public class BinTree2D<K extends Point, E> {
      * children. If it is a leaf node, then we ask whether the data point it
      * contains is within distance d of the search point.
      *
-     * Note: In the average case, the number of ideas that must be visited
+     * Note: In the average case, the number of nodes that must be visited
      * during a range query is linear on the number of data records that fall
      * within the query circle.
      *
@@ -493,7 +495,7 @@ public class BinTree2D<K extends Point, E> {
      * @param objectPoint
      * @param objectDistance
      * @param isSplittingXAxis
-     * @return
+     * @return The number of nodes that were visited.
      */
     @SuppressWarnings("unchecked")
     int regionSearchHelp(BinTreeNode<E> node, BoundingBox currentWorld,

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import java.io.PrintStream;
 import java.io.ByteArrayOutputStream;
 import realtimeweb.earthquakeservice.domain.Coordinate;
@@ -22,9 +20,7 @@ public class BinTree2DTest extends junit.framework.TestCase {
     }
 
     /**
-     * Please refer to the images at the 2 following links while trying to
-     * understand the bin tree insert method as it is very confusing: Figure 1 @:
-     * Figure 2 @:
+     * Asserts inserts of nodes create the correct bin tree structure.
      */
     public void test_insert() {
 	assertEquals("E",
@@ -37,8 +33,9 @@ public class BinTree2DTest extends junit.framework.TestCase {
 			.trim());
 
 	this.binTree.insert(new Point(30.0, 70.0), "B");
-	assertEquals("I\nI\nA\nB\nE", this.binTree
-		.preorderTraversal(this.binTree.getRootNode()).trim());
+	assertEquals("I\nI\nA\nB\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
 
 	this.binTree.insert(new Point(52.0, 65.0), "C");
 	assertEquals("I\nI\nA\nB\nC",
@@ -49,12 +46,14 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	// rootNodes right subtree since it's (x, y) position is very close to
 	// element C's (x, y) position
 	this.binTree.insert(new Point(55.0, 90.0), "D");
-	assertEquals(
-		"I\nI\nA\nB\nI\nE\nI\nI\nC\nD\nE",
-		this.binTree.preorderTraversal(this.binTree.getRootNode())
-			.trim());
+	assertEquals("I\nI\nA\nB\nI\nE\nI\nI\nC\nD\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
     }
 
+    /**
+     * Assert nodes are removed correctly and the bin tree structure is
+     * preserved.
+     */
     public void test_remove() {
 	assertFalse(this.binTree.remove(new Point(10.0, 45.0), "A"));
 
@@ -63,19 +62,15 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	this.binTree.insert(new Point(52.0, 65.0), "C");
 	this.binTree.insert(new Point(55.0, 90.0), "D");
 
-	assertEquals(
-		"I\nI\nA\nB\nI\nE\nI\nI\nC\nD\nE",
-		this.binTree.preorderTraversal(this.binTree.getRootNode())
-			.trim());
+	assertEquals("I\nI\nA\nB\nI\nE\nI\nI\nC\nD\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
 	assertTrue(this.binTree.remove(new Point(10.0, 45.0), "A"));
-	assertEquals("I\nB\nI\nE\nI"
-		+ "\nI\nC\nD\nE", this.binTree
+	assertEquals("I\nB\nI\nE\nI" + "\nI\nC\nD\nE", this.binTree
 		.preorderTraversal(this.binTree.getRootNode()).trim());
 
 	assertTrue(this.binTree.remove(new Point(30.0, 70.0), "B"));
-	assertEquals("I\nE\nI\nE\nI\nI\nC\nD\nE",
-		this.binTree.preorderTraversal(this.binTree.getRootNode())
-			.trim());
+	assertEquals("I\nE\nI\nE\nI\nI\nC\nD\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
 
 	assertTrue(this.binTree.remove(new Point(52.0, 65.0), "C"));
 	assertEquals("D",
@@ -111,9 +106,8 @@ public class BinTree2DTest extends junit.framework.TestCase {
     }
 
     /**
-     * The magnitude of the earthquake used for testing has purposely been
-     * given a magnitude so large that is will affect all 3 different types of
-     * nodes
+     * The magnitude of the earthquake used for testing has purposely been given
+     * a magnitude so large that is will affect all 3 different types of nodes
      */
     public void test_regionSearch() {
 	// earthquake1 is the very center of the world of the bintree
@@ -144,6 +138,9 @@ public class BinTree2DTest extends junit.framework.TestCase {
 		this.binTree.regionSearch(earthquake1));
     }
 
+    /**
+     * Assert a bin tree can be correclty cleared.
+     */
     public void test_clear() {
 	this.binTree.insert(new Point(10.0, 45.0), "A");
 	this.binTree.insert(new Point(30.0, 70.0), "B");
@@ -156,6 +153,10 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	assertTrue(this.binTree.getRootNode() instanceof BinTreeEmptyNode<?>);
     }
 
+    /**
+     * Assert size if the bin tree is correctly changed through inserts and
+     * removes of nodes.
+     */
     public void test_size() {
 	// insert all 4 elements and check for correct bin tree size
 	assertEquals(0, this.binTree.size());
@@ -223,8 +224,9 @@ public class BinTree2DTest extends junit.framework.TestCase {
 		.setRightChild(new BinTreeLeafNode<Point, String>(new Point(
 			30.0, 70.0), "B"));
 
-	assertEquals("I\nI\nA\nB\nE", this.binTree
-		.preorderTraversal(this.binTree.getRootNode()).trim());
+	assertEquals("I\nI\nA\nB\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
 
 	// Set C & D correctly in right subtree of rootNode by first creating
 	// the correct internal nodes to get to C & D
@@ -233,15 +235,15 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	BinTreeInternalNode<String> internalRootNodeRightChild = (BinTreeInternalNode<String>) internalRootNode
 		.getRightChild();
 
-	assertEquals("I\nI\nA\nB\nI\nE\nE", this.binTree
-		.preorderTraversal(this.binTree.getRootNode()).trim());
+	assertEquals("I\nI\nA\nB\nI\nE\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
 
 	internalRootNodeRightChild
 		.setRightChild(new BinTreeInternalNode<String>());
 
-	assertEquals("I\nI\nA\nB\nI\nE\nI\nE\nE",
-		this.binTree.preorderTraversal(this.binTree.getRootNode())
-			.trim());
+	assertEquals("I\nI\nA\nB\nI\nE\nI\nE\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
 
 	BinTreeInternalNode<String> internalRootNodeRightRightChild = (BinTreeInternalNode<String>) internalRootNodeRightChild
 		.getRightChild();
@@ -249,9 +251,8 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	internalRootNodeRightRightChild
 		.setLeftChild(new BinTreeInternalNode<String>());
 
-	assertEquals("I\nI\nA\nB\nI\nE\nI\nI\nE\nE\nE",
-		this.binTree.preorderTraversal(this.binTree.getRootNode())
-			.trim());
+	assertEquals("I\nI\nA\nB\nI\nE\nI\nI\nE\nE\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
 
 	BinTreeInternalNode<String> internalRootNodeRightRightLeftChild = (BinTreeInternalNode<String>) internalRootNodeRightRightChild
 		.getLeftChild();
@@ -264,9 +265,7 @@ public class BinTree2DTest extends junit.framework.TestCase {
 		.setRightChild(new BinTreeLeafNode<Point, String>(new Point(
 			55.0, 90.0), "D"));
 
-	assertEquals(
-		"I\nI\nA\nB\nI\nE\nI\nI\nC\nD\nE",
-		this.binTree.preorderTraversal(this.binTree.getRootNode())
-			.trim());
+	assertEquals("I\nI\nA\nB\nI\nE\nI\nI\nC\nD\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
     }
 }

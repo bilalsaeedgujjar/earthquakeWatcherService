@@ -1,5 +1,3 @@
-
-
 /**
  * To view an interactive web page about linked queue implementation visit:
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Queue.html

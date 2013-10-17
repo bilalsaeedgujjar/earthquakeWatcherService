@@ -120,12 +120,23 @@ public class BinarySearchTreeTest extends junit.framework.TestCase {
     }
 
     /**
-     * Asserts inorder traversal produces the correclty formatted string.
+     * Asserts inorder traversal produces the correctly formatted string.
      */
     public void test_inorderTraversal() {
 	assertEquals("......zero\n....one\n......two\n..three\nfour\n"
 		+ "....five\n..six\n....seven",
 		this.BST.inorderTraversal(this.BST.getRootNode(), 0).toString()
 			.trim());
+    }
+
+    /**
+     * Assert isLeaf of the BST node class works correctly.
+     */
+    public void test_isLeaf() {
+	assertFalse(this.BST.getRootNode().isLeaf());
+
+	// node containing "0" is a leaf node since it has 2 empty children
+	assertTrue(this.BST.getRootNode().getLeftChild().getLeftChild()
+		.getLeftChild().isLeaf());
     }
 }

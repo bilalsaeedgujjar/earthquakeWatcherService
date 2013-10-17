@@ -24,6 +24,9 @@ public class PointTest extends junit.framework.TestCase {
 	assertEquals("(x, y) = (3.0, 4.0)", this.point.toString());
     }
 
+    /**
+     * Asserts if we can determine if 2 points equals each other.
+     */
     public void test_equals() {
 	Point point34 = new Point(3.0, 4.0);
 	Point samePoint = new Point(3.0, 4.0);

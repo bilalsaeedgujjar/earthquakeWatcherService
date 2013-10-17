@@ -1,12 +1,10 @@
-
-
 /**
  * The internal nodes of a bin tree only store references to it's left and right
  * child.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 12, 2013
- * @param <E>
+ * @param <E> The type of element to store in this node.
  */
 public class BinTreeInternalNode<E> extends BinTreeNode<E> {
     /**
