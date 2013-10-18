@@ -1,9 +1,5 @@
-import objectdraw.StudentTestableWindowController;
-
 import java.io.ByteArrayOutputStream;
-
 import java.io.PrintStream;
-
 import java.io.IOException;
 import realtimeweb.earthquakeservice.exceptions.EarthquakeException;
 import realtimeweb.earthquakewatchers.WatcherParseException;

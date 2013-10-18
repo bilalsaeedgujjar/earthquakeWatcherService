@@ -472,8 +472,12 @@ public class EarthquakeWatcherService {
 		    + " is close to the following"
 		    + " watchers:");
 
-	    System.out
-		    .println(this.binTree.regionSearch(newEarthquakes.get(i)));
+	    Earthquake earthquake = newEarthquakes.get(i);
+	    double longitude = earthquake.getLocation().getLongitude() + 180.0;
+	    double latitude = earthquake.getLocation().getLatitude() + 90.0;
+	    double magnitude = earthquake.getMagnitude();
+	    System.out.println(this.binTree.regionSearch(longitude,
+		    latitude, magnitude));
 	}
     }
 

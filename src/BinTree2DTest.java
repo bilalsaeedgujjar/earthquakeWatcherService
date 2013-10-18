@@ -1,7 +1,5 @@
 import java.io.PrintStream;
 import java.io.ByteArrayOutputStream;
-import realtimeweb.earthquakeservice.domain.Coordinate;
-import realtimeweb.earthquakeservice.domain.Earthquake;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
@@ -48,6 +46,18 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	this.binTree.insert(new Point(55.0, 90.0), "D");
 	assertEquals("I\nI\nA\nB\nI\nE\nI\nI\nC\nD\nE", this.binTree
 		.preorderTraversal(this.binTree.getRootNode()).trim());
+    }
+
+    /**
+     * Asserts inserts of nodes create the correct bin tree structure.
+     */
+    public void test_insertHelp() {
+	BinTreeNode<String> leafNode = new BinTreeLeafNode<Point, String>(new Point(10.0, 45.0), "A");
+
+	BoundingBox currentWorld = new BoundingBox(new Point(0.0, 0.0), 100.0,
+		100.0);
+
+	this.binTree.insertHelp(leafNode, currentWorld, new Point(10.0, 55.0), "B", false);
     }
 
     /**
@@ -112,30 +122,31 @@ public class BinTree2DTest extends junit.framework.TestCase {
     public void test_regionSearch() {
 	// earthquake1 is the very center of the world of the bintree
 	// with a radius of magnitude^3 * 2 = 2^3 * 2 = 16
-	Earthquake earthquake1 = new Earthquake(
-		new Coordinate(50.0, 50.0, 1.0), 5.0, "San Fran", 1000,
-		"www.walnutiq.com", 1, 1.0, 2.0, "red", "event", 1, "id", 3.0,
-		4.0, 5.0);
 
-	this.binTree.regionSearch(earthquake1);
+	// earthquake fields
+	// longitude = 50.0
+	// latitude = 50.0
+	// magnitude = 5.0
+
+	this.binTree.regionSearch(50.0, 50.0, 5.0);
 	assertEquals("Watcher search caused 1 bintree nodes to be visited.",
-		this.binTree.regionSearch(earthquake1));
+		this.binTree.regionSearch(50.0, 50.0, 5.0));
 
 	this.binTree.insert(new Point(10.0, 45.0), "A");
 	assertEquals("Watcher search caused 1 bintree nodes to be visited.",
-		this.binTree.regionSearch(earthquake1));
+		this.binTree.regionSearch(50.0, 50.0, 5.0));
 
 	this.binTree.insert(new Point(30.0, 70.0), "B");
 	assertEquals("Watcher search caused 5 bintree nodes to be visited.",
-		this.binTree.regionSearch(earthquake1));
+		this.binTree.regionSearch(50.0, 50.0, 5.0));
 
 	this.binTree.insert(new Point(52.0, 65.0), "C");
 	assertEquals("Watcher search caused 5 bintree nodes to be visited.",
-		this.binTree.regionSearch(earthquake1));
+		this.binTree.regionSearch(50.0, 50.0, 5.0));
 
 	this.binTree.insert(new Point(55.0, 90.0), "D");
 	assertEquals("Watcher search caused 11 bintree nodes to be visited.",
-		this.binTree.regionSearch(earthquake1));
+		this.binTree.regionSearch(50.0, 50.0, 5.0));
     }
 
     /**
