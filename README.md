@@ -10,7 +10,7 @@ Intructions for this repo:
 2. In Eclipse, add these libraries(.jar file) by right-clicking your project in 
    the package explorer => Build Path => Add External Archives...
    
-3. Fork code and go to the folder view the main class EqSpatial.java to see
+3. Fork this repo! Then go to the above folder and view the main class EqSpatial.java to see
    how everything works!
 
 ===================================================================
